@@ -15,12 +15,7 @@ export const Login = () => {
                     <h1>Log in to your Account</h1>
                     <input type='email' placeholder='Email' name='email' onChange={handleChange} value={data.email} required className={styles.input}/>
                     <div className={styles.passwordContainer}>
-                        <input type= {showPassword ? 'text':'password'} placeholder='Password' name='password' onChange={handleChange} value={data.password} required className={styles.input}/>
-                        <div className={styles.checkboxContainer}>
-                            <label className={styles.checkboxLabel}>
-                                
-                            </label>
-                        </div>
+                        <input type= {showPassword ? 'text':'password'}
                     </div>
                 </form>
             </div>
