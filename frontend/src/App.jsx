@@ -1,7 +1,7 @@
 //import { useState } from 'react'
 import "bootstrap/dist/css/bootstrap.css" // updated
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Login from "./components/login"
+import Login from "./components/Login/login"
 
 function App() {
 
