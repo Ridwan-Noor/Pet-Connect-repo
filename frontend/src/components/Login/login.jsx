@@ -1,6 +1,7 @@
 //import {useState} from 'react';
 import SignupImg from '../../assets/login.png';
 import background from '../../assets/animal-background-vector-with-cute-pets-illustration_53876-127698.png'
+import {Link} from 'react-router-dom'
 
 
 function Login() {
@@ -52,21 +53,21 @@ function Login() {
           <div className='h-full bg-white'>
             <h1 className="bg-white rounded-l-10 text-3xl font-bold top-0 mt-0 text-black">New to PetConnect?</h1>
           <img src={SignupImg} alt="Signup" className="w-90 object-fill" />
-          {/* <Link to="/signup"> */}
-          <div className='w-full items-center justify-center flex'>
-          <button type="button"
+          <Link to="/signup">
+            <div className='w-full items-center justify-center flex'>
+            <button type="button"
               className="bg-white hover:bg-blue-200 text-#57534e-800 font-semibold py-3 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out"
             >
               Sign Up
             </button>
-          {/* </Link> */}
+            </div>
+          </Link>
           </div>
             
           </div>
           
         </div>
       </div>
-    </div>
   );
   }
 
