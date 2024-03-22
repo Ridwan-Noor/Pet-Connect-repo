@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 //const users_model = require("../models/users_model.js")
-const {find_user} = require("../controllers/users_controller.js") 
+const {find_user} = require("../../controller/users_controller.js") 
 
 
 router.post('/login', find_user)

@@ -1,5 +1,5 @@
 
-const users_model = require("../models/users_model.js") 
+const users_model = require("../model/models/users_model.js") 
 
 
 const find_user = (req, res) => {

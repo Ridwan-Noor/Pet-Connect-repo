@@ -1,4 +1,5 @@
 const express = require ("express")
+//const express = require ("./node_modules/express")
 const mongoose = require('mongoose')
 const cors = require("cors")
 
@@ -11,7 +12,7 @@ app.use(cors())
 
 
 //routes
-const users_route = require('./routes/users_route.js')
+const users_route = require('./model/routes/users_route.js')
 app.use('/', users_route) 
 
 
