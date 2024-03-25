@@ -5,7 +5,6 @@ import axios from 'axios'
 export const profile = ({ userEmail, onclose }) => {
     const [userProfile, setUserProfile] = useState({
         useremail: '',
-        badge: '',
         address: '',
         bio: '',
         profileImage: '',
