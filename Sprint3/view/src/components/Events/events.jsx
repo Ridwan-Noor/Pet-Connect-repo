@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 // import {useEvents} from '../../hooks/useEvents';
 import axios from 'axios';
 
-const events = () => {
+const Events = () => {
   const [filteredEvents, setFilteredEvents] = useState([]);
   const[selectedCategory, setSelectedCategory] = useState('');
   const[startDate, setStartDate] = useState('');
@@ -17,7 +17,7 @@ const events = () => {
       <div className='w-1/4 px-4 py-4 rounded-lg ml-10 mt-8 bg-white min-h-0'>
         <div className='mb-4'>
           <label htmlFor='categoryFilter' className='blovk mb-2 text-md font-semibold text-gray-900'>Filter by Category</label>
-          <select id='categoryFilter' name='categoryfilter' value={selectedCategory} className='block w-full py-2.5 px-4 text-sm font-semibold text-gray-900 bg-white border-2 border-cyan-700 rounded-md focus:outline-none focus:border-cyan-700'>
+          <select id='categoryFilter' name='categoryfilter'  className='block w-full py-2.5 px-4 text-sm font-semibold text-gray-900 bg-white border-2 border-cyan-700 rounded-md focus:outline-none focus:border-cyan-700'>
             <option value=''>All Categories</option>
             <option value='Online'>Online Pet show</option>
             <option value='Physical'>Physical Pet show</option>
@@ -26,7 +26,7 @@ const events = () => {
         <div className='mb-4 flex space-x-4 m-2 justify-center'>
           <div className='flex-1'>
             <label htmlFor='startDateFilter' className='block mb-2 text-md font-semibold text-gray-900'>Start Date:</label>
-            <input type='date' id='startDateFilter' value={startDate} className='w-full py-2.5 px-4 text-sm font-semibold text-gray-900 bg-white border-2 border-cyan-700 rounded-md focus:outline-none focus:border-cyan-700'/>
+            <input type='date' id='startDateFilter'  className='w-full py-2.5 px-4 text-sm font-semibold text-gray-900 bg-white border-2 border-cyan-700 rounded-md focus:outline-none focus:border-cyan-700'/>
           </div>
         </div>
         <button /*ei khn e ekta handlefilterevents hobe */ className='w-full py-2.5 px-4 text-md font-semibold text-white bg-cyan-950 hover:bg-teal-400 hover:text-black active:bg-green-700 rounded-md focus:outline-none'>Apply Filter</button>
@@ -66,4 +66,4 @@ const events = () => {
   )
 };
 
-export default events;
+export default Events;

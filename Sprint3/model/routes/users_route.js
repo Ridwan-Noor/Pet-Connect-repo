@@ -1,12 +1,18 @@
 
 const express = require('express');
 const router = express.Router();
-
 //const users_model = require("../models/users_model.js")
+
+
+// routes
+
 const {find_user} = require("../../controller/users_controller.js") 
-
-
 router.post('/login', find_user)
+
+const {signup} = require("../../controller/users_controller.js") 
+router.post('/signup', signup)
+
+
 
 
 //router.post('/login', (req, res) => {

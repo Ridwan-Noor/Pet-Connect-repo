@@ -36,18 +36,18 @@ const signup = () => {
 
 
   return (
-    <div className='bg-cover bg-center min-h-screen flex ' style={{ backgroundImage: `url(${background})` }}>
+    <div className='bg-cover bg-center min-h-screen flex justify-center' style={{ backgroundImage: `url(${background})` }}>
       <div className=' flex justify-center items-center pt-100'>
         <div className='w-full h-500 md:w-3/4 lg:w-1/2 xl:w-2/5 '>
           <div className='flex flex-col md:flex-row'>
-            <div className='md: w-1/2 bg-white rounded-tl-lg md:rounded-bl-lg p-8 flex flex-col items-center justify-center'>
+            <div className='md: w-1/2 bg-white rounded-l-xl p-8 flex flex-col items-center justify-center'>
               <h1 className='text-3x1 font-bold mb-4'>Welcome to PetConnect</h1>
               <img src={SignupImg} alt='Signup' className='w-64 mb-8' />
               <Link to='/login'>
-                <button type='button' className='bg-white hover:bg-amber-300 text-lime-800 rounded-lg w-full py-3 font-semibold text-medium cursor-pointer'>Log in</button>
+                <button type='button' className='bg-slate-200 hover:bg-amber-300 text-lime-800 rounded-lg w-20 py-2 font-semibold text-medium cursor-pointer transition duration-300 ease-in-out'>Log in</button>
               </Link>
             </div>
-            <div className="md: w-1/2 bg-white rounded-br-lg md:rounded-br-none p-8 flex items-center justify-center">
+            <div className="md: w-1/2 bg-white rounded-r-xl p-8 flex items-center justify-center">
               <form className='w-full' onSubmit={handleSubmit}>
                 <h1 className='text-3x1 font-bold mb-6 text-black'>Create Account</h1>
                 <input type='text' placeholder='First name' name='firstName' required onChange={(e) => setFirstName(e.target.value)} className='border border-amber-300 rounded py-2 px-4 mb-4 w-full' />
@@ -61,7 +61,7 @@ const signup = () => {
                 <div className='text-white mb-4'>
 
                 </div>
-                <button type='submit' className='big-white hover:bg-amber-300 text-lime-800 rounded-lg w-full py-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black'>Sign Up</button>
+                <button type='submit' className='bg-slate-200 hover:bg-amber-300 text-lime-800 rounded-lg w-full py-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black'>Sign Up</button>
                 
                 <div id="login-error"> 
                 {

@@ -19,7 +19,29 @@ const find_user = (req, res) => {
         })
 }
 
+const signup = (req, res) => {
+    const email = req.body.email;
+
+    users_model.find({ email: email })
+        .then((users) => {
+            //console.log(users)
+            if (users.length == 0) {
+                users_model.create(req.body) // uploading body given by client to DB
+                    .then((login_info_users) => res.json(login_info_users))  // responding back the uploaded body to client
+                    .catch(err => res.json(err))
+            } else {
+                console.log("Email already exists")
+                res.json("Email already exists")
+            }
+        })
+}
+
+
+
+
+
 
 module.exports = {
-    find_user
+    find_user,
+    signup
 }
