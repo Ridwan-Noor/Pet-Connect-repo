@@ -63,7 +63,7 @@ export const profile = ({ userEmail, onclose }) => {
                                     </div>
                                 </div>
                                 <div><button type='button' className='py-2 px-4 text-sm font-medium text-center text-white rounded-full bg-emerald-700 hover-bg-primary-700 focus-ring-4 focus-outline-none focus-ring-primary-300 mt-3'>Close</button></div>
-                                <div><button type='button' className='py-2 px-4 text-sm font-medium text-center text-white rounded-full bg-emerald-700 hover-bg-primary-700 focus-ring-4 focus-outline-none focus-ring-primary-300 mt-3'>Edit Profile</button></div>
+                                <div><button type='button' className='py-2 px-4 text-sm font-medium text-center text-white rounded-full bg-emerald-700 hover-bg-primary-700 focus-ring-4 focus-outline-none focus-ring-primary-300 mt-3 '>Edit Profile</button></div>
                             </div>
                         </div>
                     </div>

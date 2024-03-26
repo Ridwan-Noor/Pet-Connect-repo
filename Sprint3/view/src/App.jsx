@@ -8,6 +8,7 @@ import Events from "./components/Events/events"
 import Home from "./components/home.jsx"
 import Resources from "./components/resources.jsx"
 import PostEvents from "./components/PostEvent/postevent"
+import PetShop from "./components/petShop.jsx"
 
 export const UserContext = createContext(null)
 
@@ -26,6 +27,19 @@ function App() {
         <Route path='/postevent' element={<PostEvents/>}></Route>
       
       </Routes>
+      <UserContext.Provider value={{u, setU}}>
+        <Routes>
+          <Route path='/login' element={<Login/>} > </Route>
+          <Route path='/signup' element={<Signup/>} ></Route>
+          <Route path='/profile' element={<Profile/>}></Route>
+          <Route path='/events' element={<Events/>}></Route>
+          <Route path='/home' element={<Home/>}></Route>
+          <Route path='/resources' element={<Resources/>}></Route>
+          <Route path='/petShop' element={<PetShop/>}></Route>
+        
+        </Routes>        
+      </UserContext.Provider>
+
     </BrowserRouter> 
   )
 }
