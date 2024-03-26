@@ -35,7 +35,7 @@ export const profile = ({ userEmail, onclose }) => {
                             <div className='p-3 mx-auto'>
                                 <div>
                                     <div className='text-lg font-bold text-emerald-700 mb-2'>
-                                        {/* userinfo er jinish pati */}
+                                        {/* userinfo er jinish pati */} Name:
                                     </div>
                                 </div>
                                 <div className='flex flex-row items-center mb-1'>
@@ -63,6 +63,7 @@ export const profile = ({ userEmail, onclose }) => {
                                     </div>
                                 </div>
                                 <div><button type='button' className='py-2 px-4 text-sm font-medium text-center text-white rounded-full bg-emerald-700 hover-bg-primary-700 focus-ring-4 focus-outline-none focus-ring-primary-300 mt-3'>Close</button></div>
+                                <div><button type='button' className='py-2 px-4 text-sm font-medium text-center text-white rounded-full bg-emerald-700 hover-bg-primary-700 focus-ring-4 focus-outline-none focus-ring-primary-300 mt-3'>Edit Profile</button></div>
                             </div>
                         </div>
                     </div>
