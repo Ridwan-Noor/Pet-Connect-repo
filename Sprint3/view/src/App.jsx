@@ -6,7 +6,7 @@ import Signup from "./components/Signup/signup"
 import Profile from "./components/Profile/profile"
 import Events from "./components/Events/events"
 import Home from "./components/home.jsx"
-import Resources from "./components/resources.jsx"
+import Resources from "./components/Resources/resources.jsx"
 import PostEvents from "./components/PostEvent/postevent"
 import PetShop from "./components/petShop.jsx"
 
