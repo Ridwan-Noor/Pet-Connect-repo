@@ -4,12 +4,16 @@ import { useNavigate } from "react-router-dom";
 import SignupImg from '../../assets/login.png';
 import background from '../../assets/animal-background-vector-with-cute-pets-illustration_53876-127698.png'
 import { Link } from 'react-router-dom'
+import { useContext } from 'react';
+import { UserContext } from "../../App.jsx"
 
 
 function Login() {
+  const { u, setU } = useContext(UserContext);
+  //console.log(u)
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
-  //const [result, setResult] = useState()
+  const [result, setResult] = useState()
   const navigate = useNavigate()
 
   const handleSubmit = (e) => {
@@ -17,11 +21,13 @@ function Login() {
     axios.post('http://localhost:5000/login', { email, password }) // sending json body to server for validation
       .then((result) => {
         console.log(result)  // showing response which came back from the server
-        //setResult(result)
+        setResult(result)
         if (result.data === "Success") {
-          //setU(email)
+          setU(email)
+          //console.log(email)
           console.log("logged in")
-          navigate("/profile") // go to home page after login
+          //console.log(u)
+          navigate("/home") // go to home page after login
         }
 
       })

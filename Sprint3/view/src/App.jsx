@@ -1,4 +1,4 @@
-//import { useState } from 'react'
+import { useState, createContext } from 'react'
 import "bootstrap/dist/css/bootstrap.css" // updated
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from "./components/Login/login"
@@ -9,7 +9,10 @@ import Home from "./components/home.jsx"
 import Resources from "./components/resources.jsx"
 import PostEvents from "./components/PostEvent/postevent"
 
+export const UserContext = createContext(null)
+
 function App() {
+  const [u, setU] = useState("none")
 
   return (
     <BrowserRouter>

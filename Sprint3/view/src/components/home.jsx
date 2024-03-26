@@ -1,6 +1,11 @@
 import React from 'react';
+import { useContext } from 'react';
+import { UserContext } from "../App.jsx"
 
 function Home() {
+    const { u, setU } = useContext(UserContext);
+    console.log(u)
+
     return (
         <div className="bg-white font-family-karla">
 
