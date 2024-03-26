@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom'
 import { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-//import React, {useContext} from 'react';
-//import {UserContext} from "../userContext";
+import { useContext } from 'react';
+import { UserContext } from "../../App.jsx"
 
 const signup = () => {
-  //const {setU} = useContext(UserContext);
+  const { u, setU } = useContext(UserContext);
   const [firstName, setFirstName] = useState()
   const [lastName, setLastName] = useState()
   const [email, setEmail] = useState()
@@ -24,7 +24,7 @@ const signup = () => {
         console.log(result.data)  // showing response which came back from the server
         setResult(result)
         if (result.data !== "Email already exists") {
-          //setU(email)
+          setU(email)
           navigate("/profile")  // go to login page after registering          
         }
 

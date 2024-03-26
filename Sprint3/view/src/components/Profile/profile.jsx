@@ -1,20 +1,25 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from 'axios'
+import { useContext } from 'react';
+import { UserContext } from "../../App.jsx"
 
 export const profile = ({ userEmail, onclose }) => {
-    const [userProfile, setUserProfile] = useState({
-        useremail: '',
-        address: '',
-        bio: '',
-        profileImage: '',
-    });
+    //const [userProfile, setUserProfile] = useState({
+    //    useremail: '',
+    //    address: '',
+    //    bio: '',
+    //    profileImage: '',
+    //});
 
-    const [userInfo, setUserInfo] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-    });
+    //const [userInfo, setUserInfo] = useState({
+    //    firstName: '',
+    //    lastName: '',
+    //    email: '',
+    //});
+
+    const { u, setU } = useContext(UserContext);
+    console.log(u)
 
 
     return (
