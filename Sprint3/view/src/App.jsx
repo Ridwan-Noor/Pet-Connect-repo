@@ -5,10 +5,10 @@ import Login from "./components/Login/login"
 import Signup from "./components/Signup/signup"
 import Profile from "./components/Profile/profile"
 import Events from "./components/Events/events"
-import Home from "./components/home.jsx"
+import Home from "./components/Homepage/home.jsx"
 import Resources from "./components/Resources/resources.jsx"
 import PostEvents from "./components/PostEvent/postevent"
-import PetShop from "./components/petShop.jsx"
+import PetShop from "./components/Petshop/petShop.jsx"
 
 export const UserContext = createContext("none")
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
-import { UserContext } from "../App.jsx"
+import { UserContext } from "../../App.jsx"
 import { Link } from 'react-router-dom'
 
 function Home() {
