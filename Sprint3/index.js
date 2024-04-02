@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const cors = require("cors")
 
 const users_model = require("./model/models/users_model.js")
+const services_model = require("./model/models/services_model.js")
 
 // middlewares
 const app = express()
@@ -15,6 +16,17 @@ app.use(cors())
 const users_route = require('./model/routes/users_route.js')
 app.use('/', users_route) 
 
+
+const services_route = require('./model/routes/services_route.js')
+app.use('/', services_route) 
+
+
+const vet_route = require('./model/routes/vet_route.js')
+app.use('/', vet_route) 
+
+
+const messages_route = require('./model/routes/messages_route.js')
+app.use('/', messages_route) 
 
 //app.post('/login', (req, res) => {
 //    const { email, password } = req.body;  // storing json body elements to variables which is sent by client 
