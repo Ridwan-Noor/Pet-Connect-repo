@@ -79,15 +79,6 @@ function Home() {
 
                 </div>
 
-                <div className="bg-slate-400  p-80 m-10">
-                    <div className=''>abcaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
-                </div>
-                <div className="bg-slate-400  p-80 m-10">
-                    <div className=''>abcaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
-                </div>
-                <div className="bg-slate-400  p-80 m-10">
-                    <div className=''>abcaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
-                </div>
 
             </div>
 
