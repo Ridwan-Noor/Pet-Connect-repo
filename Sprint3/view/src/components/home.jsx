@@ -27,14 +27,14 @@ function Home() {
                     <div className={`w-full ${open ? 'block' : 'hidden'}  text-orange-400 `}>
                         <div className=" w-full  flex flex-row items-center justify-left text-xl font-bold uppercase pt-2 ">
                             <Link to="/events" className=" border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ml-5">Events</Link>
-                            <Link to="#" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Services</Link>
+                            <Link to="/services" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Services</Link>
                             <Link to="/petShop" className="min-w-32 border-r-2 border-gray-400 hover:bg-gray-300  py-2 pl-3 mb-2">Pet Shop</Link>
-                            <Link to="#" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Veteranian</Link>
-                            <Link to="#" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Adopt</Link>
+                            <Link to="/" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Veteranian</Link>
+                            <Link to="/" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Adopt</Link>
                             <Link to="/resources" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Resources</Link>
-                            <div className='nav-right  w-full flex flex-row justify-end'>
-                                <Link to="/Profile" className="text-white bg-orange-400 text-lg font-bold uppercase hover:bg-gray-400 rounded py-2 px-4 mb-2 ">Profile</Link>
-                                <Link to="/Logout" className="text-white bg-orange-400 text-lg font-bold uppercase hover:bg-gray-400 rounded py-2 px-4 mb-2 mx-3">Logout</Link>
+                            <div className='nav-right  w-full flex flex-row justify-end ml-3'>
+                                <Link to="/profile" className="text-white bg-sky-500 text-lg font-bold uppercase hover:bg-gray-400 rounded py-2 px-4 mb-2 ">Profile</Link>
+                                <Link to="/login" className="text-white bg-sky-500 text-lg font-bold uppercase hover:bg-gray-400 rounded py-2 px-4 mb-2 mx-3">Logout</Link>
                             </div>
 
                         </div>
@@ -51,9 +51,9 @@ function Home() {
                         <Link to="#" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Veteranian</Link>
                         <Link to="#" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Adopt</Link>
                         <Link to="/resources" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Resources</Link>
-                        <div className='nav-right  w-full flex flex-row justify-end'>
-                            <Link to="/Profile" className="text-white bg-orange-400 text-lg font-bold uppercase hover:bg-gray-400 rounded py-2 px-4 mb-2 ">Profile</Link>
-                            <Link to="/Logout" className="text-white bg-orange-400 text-lg font-bold uppercase hover:bg-gray-400 rounded py-2 px-4 mb-2 mx-3">Logout</Link>
+                        <div className='nav-right  w-full flex flex-row justify-end ml-3'>
+                            <Link to="/Profile" className="text-white bg-sky-500 text-lg font-bold uppercase hover:bg-gray-400 rounded py-2 px-4 mb-2 ">Profile</Link>
+                            <Link to="/Logout" className="text-white bg-sky-500 text-lg font-bold uppercase hover:bg-gray-400 rounded py-2 px-4 mb-2 mx-3">Logout</Link>
                         </div>
 
                     </div>
@@ -79,7 +79,15 @@ function Home() {
 
                 </div>
 
-
+                <div className="bg-slate-400  p-80 m-10">
+                    <div className=''>abcaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+                </div>
+                <div className="bg-slate-400  p-80 m-10">
+                    <div className=''>abcaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+                </div>
+                <div className="bg-slate-400  p-80 m-10">
+                    <div className=''>abcaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+                </div>
 
             </div>
 
