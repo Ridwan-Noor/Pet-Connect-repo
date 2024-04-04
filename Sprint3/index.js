@@ -2,14 +2,18 @@ const express = require ("express")
 //const express = require ("./node_modules/express")
 const mongoose = require('mongoose')
 const cors = require("cors")
+const multer = require('multer')
+const path = require('path')
 
-const users_model = require("./model/models/users_model.js")
-const services_model = require("./model/models/services_model.js")
+//const users_model = require("./model/models/users_model.js")
+//const services_model = require("./model/models/services_model.js")
+const posts_model = require("./model/models/posts_model.js")
 
 // middlewares
 const app = express()
 app.use(express.json())
 app.use(cors())
+app.use(express.static('model'))
 
 
 //routes   login, signup
@@ -27,6 +31,60 @@ app.use('/', vet_route)
 
 const messages_route = require('./model/routes/messages_route.js')
 app.use('/', messages_route) 
+
+
+
+// image storage
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'model/Images')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname))
+    }
+})
+const upload = multer({
+    storage: storage
+})
+
+// upload post
+app.post('/upload', upload.single('file'), (req, res) => {  // uploading post image
+    console.log(req.file) 
+    posts_model.create({image: req.file.filename, caption:req.caption})
+    .then(result => res.json(result))
+    .catch(err => console.log(err))
+} )
+app.post('/uploadPost', (req, res) => {   // uploading post data
+    const { post_id, caption, radio, userName } = req.body
+    console.log(post_id)
+    console.log(caption)
+    console.log(radio)
+    posts_model.findOneAndUpdate( {_id:post_id }, {caption:caption, type:radio, userName:userName} )
+    .then(res.json("Uploaded Post"))
+    .catch(err => res.json(err))
+})
+
+// getting posts
+app.get('/getPosts', (req, res) => {
+    posts_model.find()
+    .then(posts => res.json(posts))
+    .catch(err => res.json(err))
+})
+app.get('/getAllPosts', (req, res) => {
+    posts_model.find()
+    .then(posts => res.json(posts))
+    .catch(err => res.json(err))
+})
+
+// update likes
+app.post('/updateLikes', (req,res)=> {
+    //const post_id = req.params.id;
+    const {post_id, newLikes} = req.body
+    posts_model.findOneAndUpdate( {_id:post_id}, {likes:newLikes} )
+    .then(res.json("Updated Likes"))
+    .catch(err => res.json(err))
+})
+
 
 //app.post('/login', (req, res) => {
 //    const { email, password } = req.body;  // storing json body elements to variables which is sent by client 
