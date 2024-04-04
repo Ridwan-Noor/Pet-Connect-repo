@@ -22,9 +22,9 @@ function Login() {
       .then((result) => {
         console.log(result)  // showing response which came back from the server
         setResult(result)
-        if (result.data === "Success") {
-          setU(email)
-          //console.log(email)
+        if (result.data !== "The password is incorrect") {
+          setU([email,result.data])
+          console.log("u :", u)
           console.log("logged in")
           //console.log(u)
           navigate("/home") // go to home page after login

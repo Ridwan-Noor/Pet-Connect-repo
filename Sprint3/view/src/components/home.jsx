@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 function Home() {
     const { u, setU } = useContext(UserContext);
-    console.log(u)
+    console.log("u:", u)
 
     return (
 

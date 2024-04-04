@@ -1,7 +1,7 @@
 
 const users_model = require("../model/models/users_model.js") 
 
-
+// login
 const find_user = (req, res) => {
     const { email, password } = req.body;  // storing json body elements to variables which is sent by client 
     console.log(req.body)
@@ -9,7 +9,8 @@ const find_user = (req, res) => {
         .then((user) => {  // 'user' is the response about finding email, can name anything 
             if (user) {
                 if (user.password === password) { 
-                    res.json("Success") 
+                    //console.log(user["firstName"]+user["lastName"])
+                    res.json(user["firstName"]+" "+user["lastName"]) 
                 } else {
                     res.json("The password is incorrect")
                 }
@@ -19,6 +20,8 @@ const find_user = (req, res) => {
         })
 }
 
+
+//signup
 const signup = (req, res) => {
     const email = req.body.email;
 

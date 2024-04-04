@@ -15,13 +15,16 @@ import PetShop from "./components/petShop.jsx"
 // import Conversation from "./components/Inbox/conversation.jsx"
 // <Route path='/conversation' element={<Conversation/>}></Route>
 
-export const UserContext = createContext(null)
+export const UserContext = createContext("")
+//export const UserNameContext = createContext("")
 
 function App() {
-  const [u, setU] = useState("none")
+  const [u, setU] = useState(["",""])
+  //const [uName, setUName] = useState("none")
 
   return (
     <BrowserRouter>
+      {/*<UserContext.Provider value={{uName, setUName}}>*/}
       <UserContext.Provider value={{u, setU}}>
         <Routes>
           <Route path='/login' element={<Login/>} > </Route>
@@ -39,6 +42,7 @@ function App() {
         
         </Routes>        
       </UserContext.Provider>
+      {/*</UserContext.Provider>*/}
 
     </BrowserRouter> 
   )
