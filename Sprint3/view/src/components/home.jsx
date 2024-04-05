@@ -29,7 +29,6 @@ function Home() {
 
         const formdata = new FormData()
         formdata.append('file', file)
-        formdata.append('caption', caption)
         axios.post('http://localhost:5000/upload', formdata) // uploading image
             .then(res => {
                 console.log(res)
@@ -43,6 +42,7 @@ function Home() {
             })
             .catch(err => console.log(err))
     }
+
 
     //const [img, setImg] = useState()    // dummy post
     //useEffect(() => {
@@ -83,10 +83,10 @@ function Home() {
         const userName = u[1]
         console.log(post_id, userName, newComment)
         axios.post("http://localhost:5000/updateComments", { post_id, userName, newComment })
-        .then((res) => {
-            console.log(res.data)
-        })
-        .catch((err) => console.log(err));
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch((err) => console.log(err));
     }
 
     return (

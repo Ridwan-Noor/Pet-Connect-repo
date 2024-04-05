@@ -20,14 +20,19 @@ function Login() {
     e.preventDefault()
     axios.post('http://localhost:5000/login', { email, password }) // sending json body to server for validation
       .then((result) => {
-        console.log(result)  // showing response which came back from the server
-        setResult(result)
-        if (result.data !== "The password is incorrect") {
-          setU([email,result.data])
+        console.log(result.data)  // result.data=[fullName, userObject]
+        //setResult(result)
+        if (result.data[0] !== "The password is incorrect") {
+          setU([email, result.data[0]])  // [email, fullName]
           console.log("u :", u)
           console.log("logged in")
-          //console.log(u)
-          navigate("/home") // go to home page after login
+          //console.log(result.data[1])
+          if(result.data[1].role == 'normal'){
+            navigate("/home") // go to home page after login            
+          } else if (result.data[1].role == 'admin'){
+            navigate("/adminHome") // go to admin home
+          }
+
         }
 
       })

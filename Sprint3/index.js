@@ -8,6 +8,7 @@ const path = require('path')
 //const users_model = require("./model/models/users_model.js")
 //const services_model = require("./model/models/services_model.js")
 const posts_model = require("./model/models/posts_model.js")
+const products_model = require("./model/models/products_model.js")
 
 // middlewares
 const app = express()
@@ -50,7 +51,8 @@ const upload = multer({
 // upload post
 app.post('/upload', upload.single('file'), (req, res) => {  // uploading post image
     //console.log(req.file) 
-    posts_model.create({ image: req.file.filename, caption: req.caption })
+    //posts_model.create({ image: req.file.filename, caption: req.caption })
+    posts_model.create({ image: req.file.filename})
         .then(result => res.json(result))
         .catch(err => console.log(err))
 })
@@ -63,6 +65,40 @@ app.post('/uploadPost', (req, res) => {   // uploading post data
         .then(res.json("Uploaded Post"))
         .catch(err => res.json(err))
 })
+
+
+// upload product
+app.post('/uploadProductImage', upload.single('file'), (req, res) => {  // uploading product image
+    //console.log(req.file) 
+    //posts_model.create({ image: req.file.filename, caption: req.caption })
+    products_model.create({ image: req.file.filename})
+    .then((result) => {
+        console.log(result)
+        res.json(result)
+    })
+    .catch(err => console.log(err))
+})
+app.post('/uploadProduct', (req, res) => {   // uploading product data
+    console.log('in')
+    const { post_id, title, description, price } = req.body
+    console.log(post_id)
+    //console.log(caption)
+    //console.log(radio)
+    products_model.findOneAndUpdate({ _id: post_id }, { title:title, description:description, price:price })
+    .then(res.json("Uploaded Product"))
+    .catch(err => res.json(err))
+})
+//app.post('/uploadProduct', (req, res) => {   // uploading product data
+//    console.log('in')
+//    const { title, description, price } = req.body
+//    //console.log(post_id)
+//    //console.log(caption)
+//    //console.log(radio)
+//    products_model.findOneAndUpdate({  }, {$set:{title:title, description:description, price:price}}, {new:true,sort:{_id:-1}})
+//    .then(res.json("Uploaded Product"))
+//    .catch(err => res.json(err))
+//})
+
 
 // getting posts
 //app.get('/getPosts', (req, res) => {  // dummy post

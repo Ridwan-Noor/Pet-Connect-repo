@@ -10,12 +10,12 @@ const find_user = (req, res) => {
             if (user) {
                 if (user.password === password) { 
                     //console.log(user["firstName"]+user["lastName"])
-                    res.json(user["firstName"]+" "+user["lastName"]) 
+                    res.json([user["firstName"]+" "+user["lastName"], user]) 
                 } else {
-                    res.json("The password is incorrect")
+                    res.json(["The password is incorrect", ""])
                 }
             } else {
-                res.json("User not found")
+                res.json(["User not found", ""])
             }
         })
 }
