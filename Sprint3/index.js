@@ -1,4 +1,4 @@
-const express = require ("express")
+const express = require("express")
 //const express = require ("./node_modules/express")
 const mongoose = require('mongoose')
 const cors = require("cors")
@@ -18,19 +18,19 @@ app.use(express.static('model'))
 
 //routes   login, signup
 const users_route = require('./model/routes/users_route.js')
-app.use('/', users_route) 
+app.use('/', users_route)
 
 
 const services_route = require('./model/routes/services_route.js')
-app.use('/', services_route) 
+app.use('/', services_route)
 
 
 const vet_route = require('./model/routes/vet_route.js')
-app.use('/', vet_route) 
+app.use('/', vet_route)
 
 
 const messages_route = require('./model/routes/messages_route.js')
-app.use('/', messages_route) 
+app.use('/', messages_route)
 
 
 
@@ -49,40 +49,61 @@ const upload = multer({
 
 // upload post
 app.post('/upload', upload.single('file'), (req, res) => {  // uploading post image
-    console.log(req.file) 
-    posts_model.create({image: req.file.filename, caption:req.caption})
-    .then(result => res.json(result))
-    .catch(err => console.log(err))
-} )
+    //console.log(req.file) 
+    posts_model.create({ image: req.file.filename, caption: req.caption })
+        .then(result => res.json(result))
+        .catch(err => console.log(err))
+})
 app.post('/uploadPost', (req, res) => {   // uploading post data
     const { post_id, caption, radio, userName } = req.body
-    console.log(post_id)
-    console.log(caption)
-    console.log(radio)
-    posts_model.findOneAndUpdate( {_id:post_id }, {caption:caption, type:radio, userName:userName} )
-    .then(res.json("Uploaded Post"))
-    .catch(err => res.json(err))
+    //console.log(post_id)
+    //console.log(caption)
+    //console.log(radio)
+    posts_model.findOneAndUpdate({ _id: post_id }, { caption: caption, type: radio, userName: userName })
+        .then(res.json("Uploaded Post"))
+        .catch(err => res.json(err))
 })
 
 // getting posts
-app.get('/getPosts', (req, res) => {
-    posts_model.find()
-    .then(posts => res.json(posts))
-    .catch(err => res.json(err))
-})
+//app.get('/getPosts', (req, res) => {  // dummy post
+//    posts_model.find()
+//    .then(posts => res.json(posts))
+//    .catch(err => res.json(err))
+//})
 app.get('/getAllPosts', (req, res) => {
     posts_model.find()
-    .then(posts => res.json(posts))
-    .catch(err => res.json(err))
+        .then(posts => res.json(posts))
+        .catch(err => res.json(err))
 })
 
 // update likes
-app.post('/updateLikes', (req,res)=> {
+app.post('/updateLikes', (req, res) => {
     //const post_id = req.params.id;
-    const {post_id, newLikes} = req.body
-    posts_model.findOneAndUpdate( {_id:post_id}, {likes:newLikes} )
-    .then(res.json("Updated Likes"))
-    .catch(err => res.json(err))
+    const { post_id, newLikes } = req.body
+    posts_model.findOneAndUpdate({ _id: post_id }, { likes: newLikes })
+        .then(res.json("Updated Likes"))
+        .catch(err => res.json(err))
+})
+
+// update comments
+app.post('/updateComments', (req, res) => {
+    //console.log('in')
+    //const post_id = req.params.id;
+    const { post_id, userName, newComment } = req.body
+    console.log(userName)
+
+    //const updateObject = {}     /////////////////////////// for nested comment object
+    //updateObject[`comments.${userName}`] = newComment;
+    //posts_model.findByIdAndUpdate( {_id:post_id}, {$set:updateObject}, {new: true} )
+
+    const commentArray = [userName, newComment]
+    posts_model.findByIdAndUpdate({_id: post_id}, {$push:{comments:commentArray} }, { new: true })
+        .then((res) => {
+            res.json(res)
+            console.log(post_id)
+            console.log(res.data)
+        })
+        .catch(err => res.json(err))
 })
 
 
@@ -132,6 +153,6 @@ mongoose.connect("mongodb+srv://admin_pet_connect:admin_pet_connect@database-api
         console.log(error)
     })
 
-app.listen(5000, ()=> {
-    console.log("server is running") 
+app.listen(5000, () => {
+    console.log("server is running")
 }) 

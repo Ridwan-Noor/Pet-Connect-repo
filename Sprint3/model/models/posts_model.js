@@ -5,7 +5,8 @@ const posts_schema = new mongoose.Schema({
     caption: String,
     type: String,
     userName: String,
-    likes: {type: Number, default: 0}
+    likes: {type: Number, default: 0},
+    comments: {type: Array, default: []}
     //role: { type: String, default: "normal" }
 }, {
     collection: 'posts' // preventing auto add 's' in mongodb table 

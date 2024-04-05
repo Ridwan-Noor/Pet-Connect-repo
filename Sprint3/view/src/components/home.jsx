@@ -7,6 +7,11 @@ import axios from 'axios';
 function Home() {
     const { u, setU } = useContext(UserContext);
     console.log("u:", u)
+    //const [userName, setUserName] = useState("None")  // userName = u[1]
+    //useEffect(() => {
+    //    setUserName(u[1])
+    //    console.log(userName)
+    //}, [])
 
     const [file, setFile] = useState()
     const [caption, setCaption] = useState()
@@ -31,6 +36,7 @@ function Home() {
                 console.log("id:", res.data._id)
                 const post_id = res.data._id  //post id
                 const userName = u[1]
+                //setUserName(u[1])
                 axios.post('http://localhost:5000/uploadPost', { post_id, caption, radio, userName })  // uploading post data
                     .then(res => console.log(res))
                     .catch(err => console.log(err))
@@ -38,33 +44,45 @@ function Home() {
             .catch(err => console.log(err))
     }
 
-    const [img, setImg] = useState()    // dummy post
-    useEffect(() => {
-        axios.get('http://localhost:5000/getPosts')
-            .then(res => {
-                setImg(res.data[0].image) //res.data has list of all posts
-            })
-            .catch(err => console.log(err))
-    }, [])
-    console.log(img)
+    //const [img, setImg] = useState()    // dummy post
+    //useEffect(() => {
+    //    axios.get('http://localhost:5000/getPosts')
+    //        .then(res => {
+    //            setImg(res.data[0].image) //res.data has list of all posts
+    //        })
+    //        .catch(err => console.log(err))
+    //}, [])
+    //console.log(img)
 
     const [allPosts, setAllPosts] = useState(null) // List of all posts
-    useEffect(()=> {
+    useEffect(() => {
+        const userName = u[1]
+        console.log(userName)
         axios.get('http://localhost:5000/getAllPosts')
-        .then((res) => {
-            console.log("res.data=", res.data);
-            setAllPosts(res.data)
-        })
-        .catch((err) => console.log(err));
-    }, [allPosts])
+            .then((res) => {
+                console.log("res.data=", res.data);
+                setAllPosts(res.data)
+            })
+            .catch((err) => console.log(err));
+    }, [allPosts]) //allPosts
 
 
-    //const [likes, setLikes] = useState()
     const handleLike = (post_id, likes) => {
         //console.log(typeof likes)
-        var newLikes = likes +1;
-        console.log(newLikes)
-        axios.post("http://localhost:5000/updateLikes", {post_id, newLikes})
+        var newLikes = likes + 1;
+        console.log("newLikes=", newLikes)
+        axios.post("http://localhost:5000/updateLikes", { post_id, newLikes })
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch((err) => console.log(err));
+    }
+
+    const [newComment, setNewComment] = useState()
+    const handleNewComment = (post_id, newComment) => {
+        const userName = u[1]
+        console.log(post_id, userName, newComment)
+        axios.post("http://localhost:5000/updateComments", { post_id, userName, newComment })
         .then((res) => {
             console.log(res.data)
         })
@@ -117,7 +135,7 @@ function Home() {
                         <Link to="/resources" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Resources</Link>
                         <div className='nav-right  w-full flex flex-row justify-end ml-3'>
                             <Link to="/Profile" className="text-white bg-sky-500 text-lg font-bold uppercase hover:bg-gray-400 rounded py-2 px-4 mb-2 ">Profile</Link>
-                            <Link to="/Logout" className="text-white bg-sky-500 text-lg font-bold uppercase hover:bg-gray-400 rounded py-2 px-4 mb-2 mx-3">Logout</Link>
+                            <Link to="/login" className="text-white bg-sky-500 text-lg font-bold uppercase hover:bg-gray-400 rounded py-2 px-4 mb-2 mx-3">Logout</Link>
                         </div>
 
                     </div>
@@ -157,8 +175,8 @@ function Home() {
                     </div>
                 </div>
 
- 
-                {allPosts && allPosts.length>0 ? (
+
+                {allPosts && allPosts.length > 0 ? (
                     <div>
                         {allPosts.map((post, index) => (
 
@@ -173,41 +191,41 @@ function Home() {
                                             <p className="text-sm text-gray-700">{post.caption}</p>
                                         </div>
                                         {/* Attached Picture */}
-                                        <img src={`http://localhost:5000/Images/`+post.image} alt="Post" className="w-full" /> {/* https://source.unsplash.com/random */}
+                                        <img src={`http://localhost:5000/Images/` + post.image} alt="Post" className="w-full" /> {/* https://source.unsplash.com/random */}
                                         {/* Like Button and Like Count */}
                                         <div className="flex items-center justify-between px-4 py-2">
                                             {/* Like Button */}
-                                            <button onClick={()=> handleLike(post._id, post.likes)}>
+                                            <button onClick={() => handleLike(post._id, post.likes)}>
                                                 Like
                                             </button>
                                             {/* Like Count */}
                                             <span className="text-sm font-semibold">{post.likes} Likes</span>
                                         </div>
                                         {/* Comments */}
-                                        {/*<div className="px-4 py-2">
-                                            {comments.map((comment, index) => (
+                                        <div className="px-4 py-2">
+                                            {post.comments.map((comment, index) => (
                                                 <div key={index} className="flex items-center mb-2">
-                                                    <span className="font-semibold mr-2">John Doe:</span>
-                                                    <span>{comment}</span>
+                                                    <span className="font-semibold mr-2">{comment[0]}:</span>
+                                                    <span>{comment[1]}</span>
                                                 </div>
                                             ))}
-                                        </div>*/}
+                                        </div>
                                         {/* Comment Box */}
                                         <div className="px-4 py-2 border-t border-gray-200">
-                                            <input type="text" placeholder="Write a comment..." className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-500" />
-                                            <button className="bg-blue-500 text-white px-4 py-2 rounded-md ml-2">Comment</button>
+                                            <input type="text" onChange={e => setNewComment(e.target.value)} placeholder="Write a comment..." className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-500" />
+                                            <button onClick={() => handleNewComment(post._id, newComment)} className="bg-blue-500 text-white px-4 py-2 rounded-md ml-2">Comment</button>
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
 
                             </div>
 
 
-                        ))}                    
+                        ))}
                     </div>
-                ):(
+                ) : (
                     <p className="text-center">No posts available.</p>
-                )}                    
+                )}
 
 
 
