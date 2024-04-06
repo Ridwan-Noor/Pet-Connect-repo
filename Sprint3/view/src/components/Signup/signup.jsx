@@ -23,8 +23,8 @@ const signup = () => {
       .then((result) => {
         console.log(result.data)  // showing response which came back from the server
         setResult(result)
-        if (result.data !== "Email already exists") {
-          setU(email)
+        if (result.data[0] !== "Email already exists") {
+          setU([result.data[1].email], result.data[0], "", "" )
           navigate("/profile")  // go to login page after registering          
         }
 

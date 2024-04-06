@@ -1,36 +1,59 @@
 import React from 'react'
-//import { useState, useEffect } from 'react';
-//import axios from 'axios'
+import { useState, useEffect } from 'react';
+import axios from 'axios'
 import { useContext } from 'react';
 import { UserContext } from "../../App.jsx"
 import { Link } from 'react-router-dom'
 
 export const profile = ({ userEmail, onclose }) => {
-    //const [userProfile, setUserProfile] = useState({
-    //    useremail: '',
-    //    address: '',
-    //    bio: '',
-    //    profileImage: '',
-    //});
-
-    //const [userInfo, setUserInfo] = useState({
-    //    firstName: '',
-    //    lastName: '',
-    //    email: '',
-    //});
-
     const { u, setU } = useContext(UserContext);
-    console.log(u)
+    console.log("u=", u)
 
+    const [userInfo, setUserInfo] = useState(null)
+    useEffect(() => {
+        const userEmail = u[0]
+        console.log(userEmail)
+        axios.post('http://localhost:5000/getUserInfo', {userEmail})
+            .then((res) => {
+                console.log("res.data=", res.data);
+                setUserInfo(res.data)
+                console.log("userInfo.email=", userInfo.email)
+            })
+            .catch((err) => console.log(err));
+    }, [userInfo]) //userInfo
+
+    const [showEdit, setShowEdit] = useState(-1)
+    const handleEdit = (e) => {
+        const se = -1*showEdit
+        setShowEdit(se)
+    }
+
+    const [firstName, setFirstName] = useState()
+    const [lastName, setLastName] = useState()
+    const [address, setAddress] = useState()
+    const [bio, setBio] = useState()
+    const handleUpdate = (e) => {
+        const userEmail = u[0]
+        axios.post('http://localhost:5000/updateProfile', {userEmail,firstName,lastName,address,bio })
+        .then((res) => {
+            console.log("res.data=", res.data);
+            setUserInfo(res.data)
+            console.log("userInfo.email=", userInfo.email)
+        })
+        .catch((err) => console.log(err));
+        
+        const se = -1*showEdit
+        setShowEdit(se)
+    }
 
     return (
         <>
 
-<div className='topSection z-30 relative'>
+            <div className='topSection z-30 relative'>
                 <header className=" bg-sky-400  font-bold font-sans italic tracking-widest text-white">
                     <div className="flex flex-col items-center py-2">
                         <div className=" uppercase text-5xl " >
-                            PET CONNECT
+                            PET CONNECT 
                         </div>
                         <p className="text-lg ">
                             Welcome to the Community of Pets!
@@ -72,62 +95,137 @@ export const profile = ({ userEmail, onclose }) => {
             </nav>
 
             <div className='home-cont z-10 relative flex flex-col items-center'>
-            
 
-                <div className="w-100 flex justify-center mt-28">
-                    <div className='relative w-96 bg-white overflow-hidden '>
+
+                <div className="w-9/12 flex justify-center mt-16 rounded-lg">
+                    <div className='relative w-9/12 bg-white overflow-hidden rounded-lg'>
                         <div className='bg-emerald-200 py-4 text-center text-black rounded-t-lg font-bold'>
-                            <h1 className='text-xl px-6 text-black'>User Profile</h1>
+                            <h1 className='text-2xl px-6 text-black'>User Profile</h1>
                         </div>
-                        <div className='flex flex-col p-4'>
-                            <div className='flex flex-col items-center'>
+                        <div className='flex flex-col p-4 bg-gray-100 '>
+                            <div className='flex flex-col items-center rounded-lg'>
                                 {/* user er picture er ta dibo */}
                                 <div className='w-full rounded-lg border-2 border-emerald-700 bg-white mt-4'>
-                                    <div className='p-3 mx-auto'>
+                                    <div className='p-3 mx-auto '>
                                         <div>
-                                            <div className='text-lg font-bold text-emerald-700 mb-2'>
-                                                {/* userinfo er jinish pati */} Name:
+                                            <div className='text-xl font-bold text-emerald-700 mb-2'>
+                                                {/* userinfo er jinish pati */} Profile Information:
                                             </div>
                                         </div>
                                         <div className='flex flex-row items-center mb-1'>
-                                            <div className='text-sm font-medium text-slate-800'>
-                                                Email:
+                                            <div className='text-l font-medium text-slate-800'>
+                                                Email: {userInfo?(userInfo.email):("not found")}
                                             </div>
-                                            <div className='text-sm font-semibold ml-1'>
-                                                {/*userinfo,email*/}
+                                            <div className='text-l  ml-1'>
+                                                { }
                                             </div>
                                         </div>
                                         <div className='flex flex-row items-center mb-1'>
-                                            <div className='text-sm font-medium text-slate-800'>
-                                                Address:
+                                            <div className='text-l font-medium text-slate-800'>
+                                                First Name: {userInfo?(userInfo.firstName):("not found")}
                                             </div>
-                                            <div className='text-sm font-semibold ml-1'>
+                                            <div className='text-sm  ml-1'>
                                                 {/*user er address*/}
                                             </div>
                                         </div>
                                         <div className='flex flex-row items-center mb-1'>
-                                            <div className='text-sm font-medium text-slate-800'>
-                                                Bio:
+                                            <div className='text-l font-medium text-slate-800'>
+                                                Last Name: {userInfo?(userInfo.lastName):("not found")}
                                             </div>
-                                            <div className='text-sm font-semibold ml-1'>
+                                            <div className='text-l  ml-1'>
+                                                {/*user er address*/}
+                                            </div>
+                                        </div>
+                                        <div className='flex flex-row items-center mb-1'>
+                                            <div className='text-l font-medium text-slate-800'>
+                                                Address: {userInfo?(userInfo.address):("not found")}
+                                            </div>
+                                            <div className='text-l  ml-1'>
+                                                {/*user er address*/}
+                                            </div>
+                                        </div>
+                                        <div className='flex flex-row items-center mb-1'>
+                                            <div className='text-l font-medium text-slate-800'>
+                                                Bio: {userInfo?(userInfo.bio):("not found")}
+                                            </div>
+                                            <div className='text-l  ml-1'>
 
                                             </div>
                                         </div>
-                                        <div><button type='button' className='py-2 px-4 text-sm font-medium text-center text-white rounded-full bg-emerald-700 hover-bg-primary-700 focus-ring-4 focus-outline-none focus-ring-primary-300 mt-3'>Close</button></div>
-                                        <div><button type='button' className='py-2 px-4 text-sm font-medium text-center text-white rounded-full bg-emerald-700 hover-bg-primary-700 focus-ring-4 focus-outline-none focus-ring-primary-300 mt-3'>Edit Profile</button></div>
+                                        <div><button type='button' onClick={handleEdit} className='py-2 px-4 text-sm font-medium text-center text-white rounded-full bg-emerald-700 hover-bg-primary-700 focus-ring-4 focus-outline-none focus-ring-primary-300 mt-3'>Edit Profile</button></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                    </div>            
-                </div>                   
+                    </div>
+                </div>
 
-            
+
+                {showEdit!=-1?(
+                    <div className='w-full flex justify-center'> 
+                        
+                    
+                        <div className="w-9/12 flex justify-center mt-3 rounded-lg">
+                            <div className='relative w-9/12 bg-white overflow-hidden rounded-lg'>
+                                <div className='bg-emerald-200 py-4 text-center text-black rounded-t-lg font-bold'>
+                                    <h1 className='text-2xl px-6 text-black'>Edit Profile</h1>
+                                </div>
+                                <div className='flex flex-col p-4 bg-gray-100 '>
+                                    <div className='flex flex-col items-center rounded-lg'>
+                                        {/* user er picture er ta dibo */}
+                                        <div className='w-full rounded-lg border-2 border-emerald-700 bg-white mt-4'>
+                                            <div className='p-3 mx-auto '>
+                                                <div>
+                                                    <div className='text-xl font-bold text-emerald-700 mb-2'>
+                                                        {/* userinfo er jinish pati */} Edit Profile Information:
+                                                    </div>
+                                                </div>
+                                                <div className='flex flex-row items-center mb-1'>
+                                                    <div className='text-l font-medium text-slate-800'>
+                                                        First Name: 
+                                                    </div>
+                                                    <input type="text" name="firstName" onChange={e => setFirstName(e.target.value)} className='border-3 rounded ml-5'/>
+                                                </div>
+                                                <div className='flex flex-row items-center mb-1'>
+                                                    <div className='text-l font-medium text-slate-800 '>
+                                                        Last Name: 
+                                                    </div>
+                                                    <input type="text" name="lastName" onChange={e => setLastName(e.target.value)} className='border-3 rounded ml-5'/>
+                                                </div>
+                                                <div className='flex flex-row items-center mb-1'>
+                                                    <div className='text-l font-medium text-slate-800'>
+                                                        Address:
+                                                    </div>
+                                                    <input type="text" name="address" onChange={e => setAddress(e.target.value)} className='border-3 rounded ml-10'/>
+                                                </div>
+                                                <div className='flex flex-row items-center mb-1'>
+                                                    <div className='text-l font-medium text-slate-800'>
+                                                        Bio:
+                                                    </div>
+                                                    <input type="text" name="bio" onChange={e => setBio(e.target.value)} className='border-3 rounded ml-16'/>
+                                                </div>
+                                                <div><button type='button' onClick={handleUpdate} className='py-2 px-4 text-sm font-medium text-center text-white rounded-full bg-emerald-700 hover-bg-primary-700 focus-ring-4 focus-outline-none focus-ring-primary-300 mt-3'>Update Profile</button></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>                    
+
+                    
+                    </div>
+                ):(
+                    <></>
+                )
+                }
+
+
             </div>
-        
-     
-        
+
+
+
         </>
 
 

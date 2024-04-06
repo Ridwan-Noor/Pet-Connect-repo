@@ -5,7 +5,7 @@ const cors = require("cors")
 const multer = require('multer')
 const path = require('path')
 
-//const users_model = require("./model/models/users_model.js")
+const users_model = require("./model/models/users_model.js")
 //const services_model = require("./model/models/services_model.js")
 const posts_model = require("./model/models/posts_model.js")
 const products_model = require("./model/models/products_model.js")
@@ -159,6 +159,23 @@ app.post('/payProduct', (req, res) => {
         .catch(err => res.json(err))
 })
 
+// getting user info
+app.post('/getUserInfo', (req, res) => {
+    const { userEmail } = req.body
+    //const userEmail = req.params.userEmail
+    //console.log("userEmail=",userEmail)
+    users_model.findOne({email:userEmail})
+        .then(user => res.json(user))
+        .catch(err => res.json(err)) 
+})
+
+// update profile
+app.post('/updateProfile', (req, res) => {
+    const { userEmail,firstName,lastName,address,bio } = req.body
+    users_model.findOneAndUpdate({ email:userEmail }, { firstName:firstName, lastName:lastName, address:address, bio:bio })
+    .then((user) => res.json(user))
+    .catch(err => res.json(err))
+})
 
 //app.post('/login', (req, res) => {
 //    const { email, password } = req.body;  // storing json body elements to variables which is sent by client 

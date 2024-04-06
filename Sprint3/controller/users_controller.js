@@ -30,11 +30,14 @@ const signup = (req, res) => {
             //console.log(users)
             if (users.length == 0) {
                 users_model.create(req.body) // uploading body given by client to DB
-                    .then((login_info_users) => res.json(login_info_users))  // responding back the uploaded body to client
+                    .then((user) => {
+                        res.json([user["firstName"]+" "+user["lastName"], user]) 
+                        res.json(user)
+                    })  // responding back the uploaded body to client
                     .catch(err => res.json(err))
             } else {
-                console.log("Email already exists")
-                res.json("Email already exists")
+                console.log(["Email already exists",""])
+                res.json(["Email already exists",""])
             }
         })
 }
