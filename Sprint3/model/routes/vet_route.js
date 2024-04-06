@@ -14,6 +14,9 @@ router.get('/getServicesByVetEmail/:email', getServicesByVetEmail)
 
 const {updateVetProfile} = require("../../controller/vet_profile_controller.js")
 router.put('/updateVetProfile/:id', updateVetProfile);
+
+const {vetLogin} = require("../../controller/vet_profile_controller.js")
+router.post('/vetLogin', vetLogin);
 //router.post('/login', (req, res) => {
 //    const { email, password } = req.body;  // storing json body elements to variables which is sent by client 
 //    console.log(req.body)
