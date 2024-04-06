@@ -16,6 +16,11 @@ function Login() {
   const [result, setResult] = useState()
   const navigate = useNavigate()
 
+  //const [vetEmail, setVetEmail] = useState("");
+  //const [vetName, setVetName] = useState("");
+  //const [userEmail, setUserEmail] = useState("");
+  //const [userName, setUserName] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault()
     axios.post('http://localhost:5000/login', { email, password }) // sending json body to server for validation
@@ -23,7 +28,7 @@ function Login() {
         console.log(result.data)  // result.data=[fullName, userObject]
         //setResult(result)
         if (result.data[0] !== "The password is incorrect") {
-          setU([email, result.data[0]])  // [email, fullName]
+          setU([email, result.data[0], "", ""])  // [email, fullName]
           console.log("u :", u)
           console.log("logged in")
           //console.log(result.data[1])
@@ -85,21 +90,29 @@ function Login() {
             </button>
           </form>
         </div>
-        <div className="flex-4 flex flex-col bg-white rounded-r-xl shadow-none">
+                <div className="flex-4 flex flex-col bg-white rounded-r-xl shadow-none">
           <div className='h-full  rounded-r-xl flex flex-column items-center justify-center mr-10'>
             <h1 className="cont-right bg-white  text-2xl font-bold top-0 text-black">New to PetConnect?</h1>
             <img src={SignupImg} alt="Signup" className="w-60  my-3 rounded-xl" />
-            <Link to="/signup">
-              <div className=' items-center justify-center flex '>
-                <button type="button"
-                  className="bg-slate-200 hover:bg-blue-200 text-#57534e-800 font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out"
+            <div className="flex items-center justify-center">
+              <Link to="/signup">
+                <button 
+                  type="button"
+                  className="mr-2 bg-slate-200 hover:bg-blue-200 text-#57534e-800 font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out"
                 >
                   Sign Up
                 </button>
-              </div>
-            </Link>
+              </Link>
+              <Link to="/vetlogin">
+                <button 
+                  type="button"
+                  className="bg-slate-200 hover:bg-blue-200 text-#57534e-800 font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out"
+                >
+                  Vet Login
+                </button>
+              </Link>
+            </div>
           </div>
-
         </div>
 
       </div>

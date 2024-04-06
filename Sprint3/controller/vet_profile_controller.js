@@ -77,9 +77,33 @@ const updateVetProfile = async (req, res) => {
   }
 };
 
+const vetLogin = (req, res) => {
+  const { email, password } = req.body;  // storing json body elements to variables which is sent by client 
+  console.log(req.body);
+  vet_model.findOne({ email: email })  // find vet based on email
+      .then((vet) => {  // 'vet' is the response about finding email, can name anything 
+          if (vet) {
+              if (vet.password === password) { 
+                  //console.log(vet["firstName"] + vet["lastName"]);
+                  res.json([vet["name"], vet]);
+                  //res.json(vet);
+              } else {
+                  res.json(["The password is incorrect", ""]);
+              }
+          } else {
+              res.json(["Vet not found", ""]);
+          }
+      })
+      .catch((error) => {
+          console.error('Vet login error:', error);
+          res.status(500).json(["Server error", ""]);
+      });
+};
+
 
 module.exports = {
   getVetProfile,
   getServicesByVetEmail,
-  updateVetProfile
+  updateVetProfile,
+  vetLogin
 };

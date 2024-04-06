@@ -2,17 +2,43 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import vetDP from '../../assets/vetprofile.png';
 import { Link, useNavigate } from 'react-router-dom'; 
+import { useContext } from 'react';
+import { UserContext } from "../../App.jsx"
 
 const VetProfile = () => {
-  const navigate = useNavigate(); 
+  //const navigate = useNavigate(); 
   const [vet, setVet] = useState(null);
   const [services, setServices] = useState([]);
 
-  // nicher 2 ta login session theke ashbe, jodi user login kore taile vetEmail = "" rakhba, otherwise ekhn vet login korse jonne userEmail = "" rakhsi 
-  const [vetEmail, setVetEmail] = useState("steve@gmail.com");
+  const { u, setU } = useContext(UserContext);
+  const navigate = useNavigate(); 
+  const first = u[0];
+  const second = u[1];
+  const third = u[2];
+  const fourth = u[3];
+  const [vetEmail, setVetEmail] = useState("");
   const [vetName, setVetName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userName, setUserName] = useState("");
+
+  const [email, setEmail] = useState("");
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    if (!userEmail && !vetEmail) {
+      if (first === "" && second === "") {
+        setVetEmail(third);
+        setVetName(fourth);
+        setEmail(third);
+        setUser(fourth);
+      } else {
+        setUserEmail(first);
+        setUserName(second);
+        setEmail(first);
+        setUser(second);
+      }
+    }
+  }, [first, second, third, fourth, userEmail, vetEmail]);
 
   useEffect(() => {
     axios.get(`http://localhost:5000/getVetProfile/${vetEmail}`)
@@ -35,11 +61,34 @@ const VetProfile = () => {
   return (
     <div>
       <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <span className="text-white text-2xl font-bold">Pet Connect</span>
-        <button onClick={() => navigate("/logout")} className="text-white font-semibold hover:text-gray-300 transition duration-300 ease-in-out bg-red-500 hover:bg-red-600 rounded-md px-3 py-2 text-sm">Log Out</button>
-      </div>
+        <div className="container mx-auto flex justify-between items-center">
+          <span className="text-white text-2xl font-bold">Pet Connect</span>
+          <div className="flex items-center">
+            <button 
+              onClick={() => navigate("/messages")} 
+              className="text-white font-semibold hover:text-gray-300 transition duration-300 ease-in-out bg-blue-500 hover:bg-blue-600 rounded-md px-4 py-2 text-sm"
+              style={{
+                borderRadius: '0.375rem',
+                backgroundColor: '#007bff',
+                padding: '0.5rem 1rem',
+                border: 'none',
+                cursor: 'pointer',
+                transition: 'background 0.3s ease, color 0.3s ease',
+              }}
+            >
+              Messages
+            </button>
+            <div style={{ width: '20px' }}></div> {/* Adding space */}
+            <button 
+              onClick={() => navigate("/login")} 
+              className="text-white font-semibold hover:text-gray-300 transition duration-300 ease-in-out bg-red-500 hover:bg-red-600 rounded-md px-3 py-2 text-sm"
+            >
+              Log Out
+            </button>
+          </div>
+        </div>
       </nav>
+
       <div className="container mx-auto mt-8">
         {vet ? (
           <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" style={{ maxWidth: '600px', margin: '0 auto' }}>
