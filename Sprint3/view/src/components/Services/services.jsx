@@ -1,17 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; 
+import { useContext } from 'react';
+import { UserContext } from "../../App.jsx"
 
 const Services = () => {
+
+  const { u, setU } = useContext(UserContext);
+  const navigate = useNavigate(); 
+  const first = u[0];
+  const second = u[1];
+  const third = u[2];
+  const fourth = u[3];
+  const [vetEmail, setVetEmail] = useState("");
+  const [vetName, setVetName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState("");
+
+  const [email, setEmail] = useState("");
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    if (!userEmail && !vetEmail) {
+      if (first === "" && second === "") {
+        setVetEmail(third);
+        setVetName(fourth);
+        setEmail(third);
+        setUser(fourth);
+      } else {
+        setUserEmail(first);
+        setUserName(second);
+        setEmail(first);
+        setUser(second);
+      }
+    }
+  }, [first, second, third, fourth, userEmail, vetEmail]);
+
   const [services, setServices] = useState([]);
   const [filteredServices, setFilteredServices] = useState([]);
   const [filterType, setFilterType] = useState('');
 
-  // session
-  const [vetEmail, setVetEmail] = useState("steve@gmail.com");
-  const [vetName, setVetName] = useState("Steve Smith");
-  const [userEmail, setUserEmail] = useState("");
-  const [userName, setUserName] = useState("");
 
   useEffect(() => {
     axios.get('http://localhost:5000/showServices')
@@ -50,6 +78,7 @@ const Services = () => {
 
       await axios.post('http://localhost:5000/add-to-cart', data);
       alert('Item added to cart successfully!');
+      navigate("/productPayment"); 
     } catch (error) {
       console.error('Error adding item to cart:', error);
       alert('Failed to add item to cart. Please try again.');
