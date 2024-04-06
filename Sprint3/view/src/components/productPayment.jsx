@@ -3,25 +3,36 @@ import { useContext, useState, useEffect } from 'react';
 import { UserContext } from "../App.jsx"
 import { Link } from 'react-router-dom'
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-function PetShop() {
+function ProductPayment() {
     const { u, setU } = useContext(UserContext);
     console.log("u:", u)
 
-    const [allProducts, setAllProducts] = useState(null) // List of all products
-    useEffect(() => {
-        const userName = u[1]
-        console.log(userName)
-        axios.get('http://localhost:5000/getAllProducts')
-            .then((res) => {
-                console.log("res.data=", res.data);
-                setAllProducts(res.data)
-            })
-            .catch((err) => console.log(err));
-    }, [allProducts]) //allPosts
+    const{ title, price} = useParams()
+
+    const [name, setName] = useState()
+    const [address, setAddress] = useState()
+    const [phone, setPhone] = useState()
+    const [cardNum, setCardNum] = useState()
+    const [cvc, setCvc] = useState()
+
+    const [paymentResult, setPaymentResult] = useState("") 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const email = u[0]
+        axios.post('http://localhost:5000/payProduct', { title, email, name, address, phone, cardNum, cvc, price }) // sending json body to server for validation
+        .then((result) => {
+          console.log(result.data)  
+          setPaymentResult(result.data)
+        })
+        .catch(err => console.log(err))
+
+    }
 
     return (
         <>
+
             <div className="body bg-white font-family-karla">
 
                 <div className='topSection z-30 relative'>
@@ -75,55 +86,59 @@ function PetShop() {
 
                 <div className='home-cont z-10 relative flex flex-wrap justify-center '>
 
-                    {/*<div className="w-96 bg-white rounded-xl overflow-hidden shadow-md md:max-w-2xl mx-5 my-4">
-                        <img className="h-48 w-full object-cover" src={`http://localhost:5000/Images/file_1712298066348.jpg`} alt="Product Image" />
-                        <div className="p-4">
-                            <h2 className="font-bold text-xl mb-2">Product Name</h2>
-                            <p className="text-gray-600 mb-4">Product Description Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non eros eget lorem interdum vulputate. Integer ac ex ac lectus suscipit commodo.</p>
-                            <h3 className='font-bold'>Price: TK150</h3>
-                            <br />
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                Buy Now
-                            </button>
-                        </div>
-                    </div>*/}
 
-                    {allProducts && allProducts.length > 0 ? (
-                        <div className=' flex flex-wrap justify-center'>
-                            {allProducts.map((product, index) => (
+                    {/* Payment Portal */}
+                    <div className="container mx-auto px-4 py-8">
+                        <h2 className="text-2xl font-bold mb-4">Make Payment</h2>
+                        <form onSubmit={handleSubmit}>
+                            <div className="mb-4">
+                                <label htmlFor="name" className="block text-sm font-semibold mb-1">Name</label>
+                                <input type="text" id="name" name="name" onChange={(e) => setName(e.target.value)} className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500" required />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="billingAddress" className="block text-sm font-semibold mb-1">Billing Address</label>
+                                <input type="text" id="billingAddress" name="address" onChange={(e) => setAddress(e.target.value)} className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500" required />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="phoneNumber" className="block text-sm font-semibold mb-1">Phone Number</label>
+                                <input type="tel" id="phoneNumber" name="phone" onChange={(e) => setPhone(e.target.value)} className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500" required />
+                            </div>
 
-                                <div key={index} >
+                            <div className="mb-4">
+                                <label htmlFor="cardNumber" className="block text-sm font-semibold mb-1">Card Number</label>
+                                <input type="text" id="cardNumber" name="cardNum" onChange={(e) => setCardNum(e.target.value)} className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500" required />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="cvc" className="block text-sm font-semibold mb-1">CVC</label>
+                                <input type="text" id="cvc" name="cvc" onChange={(e) => setCvc(e.target.value)} className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500" required />
+                            </div>
 
-                                    <div className="w-96 bg-white rounded-xl overflow-hidden shadow-md md:max-w-2xl  mx-5 my-4">
-                                        <img className="h-48 w-full object-cover" src={`http://localhost:5000/Images/${product.image}`} alt="Product Image" />
-                                        <div className="p-4">
-                                            <h2 className="font-bold text-xl mb-2">{product.title}</h2>
-                                            <p className="text-gray-600 mb-4">{product.description}</p>
-                                            <h3 className='font-bold'>Price: TK{product.price}</h3>
-                                            <br />
-                                            <Link to={`/productPayment/${product.title}/${product.price}`}>  
-                                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                                    Buy Now
-                                                </button>                                                
-                                            </Link>
-                                        </div>
-                                    </div>
+                            <div className='font-bold text-lg'> Payment Ammount: TK{price} </div> <br/>
 
+                            {
+                            (paymentResult!="")? (
+                                <div className='font-bold mb-3 text-lg'>
+                                    <div >
+                                        {paymentResult}
+                                    </div>   
                                 </div>
+                            ) : (
+                                <></>
+                            )
+                            }
 
-                            ))}
-                        </div>
-                    ) : (
-                        <p className="text-center">No products available.</p>
-                    )}
+                            <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">Pay Now</button>
+  
+                        </form>
+                    </div>
 
 
                 </div>
-                
+
 
             </div>
         </>
     );
 }
 
-export default PetShop;
+export default ProductPayment;

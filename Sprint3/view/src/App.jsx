@@ -13,6 +13,7 @@ import EditVetProfile from "./components/EditProfile/editprofilevet.jsx"
 import Messages from "./components/Inbox/messages.jsx"
 import PetShop from "./components/petShop.jsx"
 import AdminHome from "./components/adminHome.jsx"
+import ProductPayment from "./components/productPayment.jsx"
 // import Conversation from "./components/Inbox/conversation.jsx"
 // <Route path='/conversation' element={<Conversation/>}></Route>
 
@@ -40,6 +41,8 @@ function App() {
           <Route path='/messages' element={<Messages/>}></Route>
           <Route path='/petShop' element={<PetShop/>}></Route>
           <Route path='/adminHome' element={<AdminHome/>}></Route>
+          <Route path="/productPayment/:title/:price" element={<ProductPayment/>}></Route>
+          {/*<Route path=":price" element={<ProductPayment/>}></Route>*/}
         
         </Routes>        
       </UserContext.Provider>

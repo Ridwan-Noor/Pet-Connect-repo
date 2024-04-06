@@ -9,6 +9,7 @@ const path = require('path')
 //const services_model = require("./model/models/services_model.js")
 const posts_model = require("./model/models/posts_model.js")
 const products_model = require("./model/models/products_model.js")
+const payments_model = require("./model/models/payments_model.js")
 
 // middlewares
 const app = express()
@@ -139,6 +140,22 @@ app.post('/updateComments', (req, res) => {
             console.log(post_id)
             console.log(res.data)
         })
+        .catch(err => res.json(err))
+})
+
+
+// getting list of all products
+app.get('/getAllProducts', (req, res) => {
+    products_model.find()
+        .then(products => res.json(products))
+        .catch(err => res.json(err))
+})
+
+// make product payment
+app.post('/payProduct', (req, res) => {
+    //const { email, name, Address, phone, cardNum, cvc, price } = req.body
+    payments_model.create(req.body)
+        .then(res.json("Payment Successful"))
         .catch(err => res.json(err))
 })
 

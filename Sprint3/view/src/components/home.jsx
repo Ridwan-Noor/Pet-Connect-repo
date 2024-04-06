@@ -180,9 +180,9 @@ function Home() {
                     <div>
                         {allPosts.map((post, index) => (
 
-                            <div className='flex flex-col items-center'>
+                            <div key={index} className='flex flex-col items-center'>
 
-                                <div key={index} className="w-full md:w-2/3 flex flex-col items-center px-3">
+                                <div  className="w-full md:w-2/3 flex flex-col items-center px-3">
                                     {/* Single Post */}
                                     <div className="bg-white w-full my-4 shadow-md rounded-md">
                                         {/* Heading and Description */}
