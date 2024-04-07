@@ -24,7 +24,7 @@ const signup = () => {
         console.log(result.data)  // showing response which came back from the server
         setResult(result)
         if (result.data[0] !== "Email already exists") {
-          setU([result.data[1].email], result.data[0], "", "" )
+          setU([result.data[1].email], result.data[0], "", "")
           navigate("/profile")  // go to login page after registering          
         }
 
@@ -54,21 +54,14 @@ const signup = () => {
                 <input type='text' placeholder='Last name' name='lastName' required onChange={(e) => setLastName(e.target.value)} className='border border-amber-300 rounded py-2 px-4 mb-4 w-full' />
                 <input type='email' placeholder='Email' name='email' required onChange={(e) => setEmail(e.target.value)} className='border border-amber-300 rounded py-2 px-4 mb-4 w-full' />
                 <input type='password' placeholder='Password' name='password' required onChange={(e) => setPassword(e.target.value)} className='border border-amber-300 rounded py-2 px-4 mb-4 w-full' id='passwordInput' />
-                <div className='mb-4 text-black'>
-                  <input type='checkbox' className='mr-2 leading-tight' />
-                  <label htmlFor='passwordInput'>Show Password</label>
-                </div>
-                <div className='text-white mb-4'>
+                <button type='submit' className='bg-slate-200 hover:bg-amber-300 text-lime-800 rounded-lg w-full py-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black'>Sign Up</button>
+
+                <div id="login-error">
+                  {
+                    (result && result.data === "Email already exists") ? (<div>{result.data}</div>) : (<></>)
+                  }
 
                 </div>
-                <button type='submit' className='bg-slate-200 hover:bg-amber-300 text-lime-800 rounded-lg w-full py-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black'>Sign Up</button>
-                
-                <div id="login-error"> 
-                {
-                  (result && result.data === "Email already exists")? (<div>{result.data}</div>):(<></>)
-                }
-            
-            </div>
               </form>
             </div>
           </div>

@@ -71,15 +71,6 @@ function Login() {
                 className="border border-gray-500 rounded py-3 px-4 w-72"
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <label className="absolute top-0 right-0 mt-2 mr-2 flex items-center text-sm">
-                <input
-                  type="checkbox"
-                  className="mr-2"
-                // checked={showPassword}
-                // onChange={toggleShowPassword}
-                />
-                <span>Show Password</span>
-              </label>
             </div>
             <div className="w-96 h-500 flex rounded-10 shadow-md font-sans"></div>
             <button
