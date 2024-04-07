@@ -34,7 +34,25 @@ const getServicesByVetEmail = (req, res) => {
     .then(vetProfile => res.json(vetProfile))
     .catch(err => res.json(err))
 };
-
+const addService = async (req, res) => {
+    const { title, providerEmail, providerName, type, rate, description } = req.body;
+    console.log("provider", providerName);
+    try {
+      const service = new services_model({
+        title,
+        providerEmail: providerEmail,
+        providerName : providerName,
+        type,
+        rate,
+        description
+      });
+      await service.save();
+      console.log("service check", service);
+      res.status(201).json({ message: 'Service added successfully', service});
+    } catch (error) {
+      res.status(500).json({ error: 'Error adding service' });
+    }
+  };
 
 
 const updateVetProfile = async (req, res) => {
@@ -105,5 +123,6 @@ module.exports = {
   getVetProfile,
   getServicesByVetEmail,
   updateVetProfile,
-  vetLogin
+  vetLogin,
+  addService
 };

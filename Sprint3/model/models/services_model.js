@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const services_schema = new mongoose.Schema({
     title: String,
     providerEmail: String,
-    provideName: String,
+    providerName: String,
     type: String,
     description: String,
     rate: Number
