@@ -40,6 +40,52 @@ const VetProfile = () => {
     }
   }, [first, second, third, fourth, userEmail, vetEmail]);
 
+
+  const [error, setError] = useState('');
+  const [newService, setNewService] = useState({
+    title: '',
+    type: '',
+    rate: '',
+    description: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewService(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+    axios.post('http://localhost:5000/addService', {
+      ...newService,
+      providerEmail: vetEmail,
+      providerName: vetName
+    })
+    .then(response => {
+      console.log("1", response.data)
+      setServices(prevState => [...prevState, response.data.service]);
+      console.log("2", services)
+      setNewService({
+        title: '',
+        type: '',
+        rate: '',
+        description: ''
+      });
+      console.log("3", newService)
+      setError('');
+      alert('Service added successfully!');
+      //navigate("/vetProfile");
+    })
+    .catch(error => {
+      console.error('Error adding service:', error);
+      setError('Error adding service');
+    });
+  };
+  
+
   useEffect(() => {
     axios.get(`http://localhost:5000/getVetProfile/${vetEmail}`)
       .then(response => {
@@ -120,13 +166,74 @@ const VetProfile = () => {
               )}
             </div>
             <Link to="/services" className="block w-full text-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">View All</Link>
+            <div>
+  <h2 className="text-2xl font-bold mt-8 mb-4">Add a Service</h2>
+  <form onSubmit={handleSubmit}>
+    <div className="mb-4">
+      <label className="block text-gray-700 font-bold mb-2">Service Title: </label>
+      <input
+        type="text"
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        name="title"
+        value={newService.title}
+        onChange={handleChange}
+        required
+      />
+    </div>
+    <div className="mb-4">
+      <label className="block text-gray-700 font-bold mb-2">Service Type: </label>
+      <input
+        type="text"
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        name="type"
+        value={newService.type}
+        onChange={handleChange}
+        required
+      />
+    </div>
+    <div className="mb-4">
+      <label className="block text-gray-700 font-bold mb-2">Choose a Service Rate: (in BDT) </label>
+      <input
+        type="number"
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        name="rate"
+        value={newService.rate}
+        onChange={handleChange}
+        required
+      />
+    </div>
+    <div className="mb-6">
+      <label className="block text-gray-700 font-bold mb-2">Service Description: </label>
+      <textarea
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        name="description"
+        value={newService.description}
+        onChange={handleChange}
+        required
+      ></textarea>
+    </div>
+    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+      Submit for Review
+    </button>
+  </form>
+  {error && <p className="text-red-500 text-xs italic">{error}</p>}
+</div>
+
           </div>
+
+        
+          
+
+          
         ) : (
           <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <p className="text-gray-700 font-bold">Loading vet profile...</p>
           </div>
         )}
       </div>
+
+
+      
     </div>
   );
 };

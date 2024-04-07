@@ -23,6 +23,8 @@ const Services = () => {
   const [email, setEmail] = useState("");
   const [user, setUser] = useState("");
 
+  
+
   useEffect(() => {
     if (!userEmail && !vetEmail) {
       if (first === "" && second === "") {
@@ -88,6 +90,9 @@ const Services = () => {
       console.error('Error adding item to cart:', error);
       alert('Failed to add item to cart. Please try again.');
     }
+
+
+    
   };
 
   return (
