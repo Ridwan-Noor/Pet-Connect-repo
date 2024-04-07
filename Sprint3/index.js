@@ -35,7 +35,8 @@ app.use('/', vet_route)
 const messages_route = require('./model/routes/messages_route.js')
 app.use('/', messages_route)
 
-
+const events_route = require('./model/routes/events_route.js')
+app.use('/', events_route)
 
 // image storage
 const storage = multer.diskStorage({

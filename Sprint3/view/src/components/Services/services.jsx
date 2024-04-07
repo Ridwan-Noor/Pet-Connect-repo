@@ -95,7 +95,7 @@ const Services = () => {
       <nav className="bg-gray-800 p-4">
         <div className="container mx-auto flex justify-between items-center">
           <span className="text-white text-2xl font-bold">Pet Connect</span>
-          <button onClick={() => navigate("/logout")} className="text-white font-semibold hover:text-gray-300 transition duration-300 ease-in-out bg-red-500 hover:bg-red-600 rounded-md px-3 py-2 text-sm">Log Out</button>
+          <button onClick={() => navigate("/login")} className="text-white font-semibold hover:text-gray-300 transition duration-300 ease-in-out bg-red-500 hover:bg-red-600 rounded-md px-3 py-2 text-sm">Log Out</button>
         </div>
       </nav>
 
