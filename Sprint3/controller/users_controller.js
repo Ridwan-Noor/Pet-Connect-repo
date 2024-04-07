@@ -32,7 +32,7 @@ const signup = (req, res) => {
                 users_model.create(req.body) // uploading body given by client to DB
                     .then((user) => {
                         res.json([user["firstName"]+" "+user["lastName"], user]) 
-                        res.json(user)
+                        //res.json(user)
                     })  // responding back the uploaded body to client
                     .catch(err => res.json(err))
             } else {

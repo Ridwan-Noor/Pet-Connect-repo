@@ -20,7 +20,7 @@ export const profile = () => {
                 //console.log("userInfo.email=", userInfo.email)
             })
             .catch((err) => console.log(err));
-    }, []) //userInfo
+    }, [userInfo]) //userInfo
 
     const [showEdit, setShowEdit] = useState(-1)
     const handleEdit = (e) => {
@@ -57,7 +57,7 @@ export const profile = () => {
                 console.log("payments=", payments)
             })
             .catch((err) => console.log(err));
-    }, [payments])
+    }, [payments]) //payments
 
     const [servicePayments, setServicePayments] = useState([])
     useEffect(() => {
