@@ -42,12 +42,27 @@ const signup = (req, res) => {
         })
 }
 
+const getUserInfo = (req,res) =>{
+    const { userEmail } = req.body
+    //const userEmail = req.params.userEmail
+    //console.log("userEmail=",userEmail)
+    users_model.findOne({email:userEmail})
+        .then(user => res.json(user))
+        .catch(err => res.json(err)) 
+}
 
-
+const updateProfile = (req,res) => {
+    const { userEmail,firstName,lastName,address,bio } = req.body
+    users_model.findOneAndUpdate({ email:userEmail }, { firstName:firstName, lastName:lastName, address:address, bio:bio })
+    .then((user) => res.json(user))
+    .catch(err => res.json(err))
+}
 
 
 
 module.exports = {
     find_user,
-    signup
+    signup,
+    getUserInfo,
+    updateProfile
 }

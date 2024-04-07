@@ -12,6 +12,12 @@ router.post('/login', find_user)
 const {signup} = require("../../controller/users_controller.js") 
 router.post('/signup', signup)
 
+const {getUserInfo} = require("../../controller/users_controller.js") 
+router.post('/getUserInfo', getUserInfo)
+
+const {updateProfile} = require("../../controller/users_controller.js") 
+router.post('/updateProfile', updateProfile)
+
 
 //router.post('/login', (req, res) => {
 //    const { email, password } = req.body;  // storing json body elements to variables which is sent by client 
