@@ -113,7 +113,7 @@ function ProductPayment() {
                                 <input type="text" id="cvc" name="cvc" onChange={(e) => setCvc(e.target.value)} className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500" required />
                             </div>
 
-                            <div className='font-bold text-lg'> Payment Ammount: TK{price} </div> <br/>
+                            <div className='font-bold text-lg'> Payment Amount: TK{price} </div> <br/>
 
                             {
                             (paymentResult!="")? (
