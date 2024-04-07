@@ -16,8 +16,8 @@ function Resources() {
 
                     <nav>
                         <ul className="flex items-center justify-between font-bold text-sm text-white uppercase no-underline">
-                            <li><a className="hover:text-gray-200 hover:underline px-4" href="#">Profile</a></li>
-                            <li><a className="hover:text-gray-200 hover:underline px-4" href="#">Settings</a></li>
+                            <li><a className="hover:text-gray-200 hover:underline px-4" href="/profile">Profile</a></li>
+                            <li><a className="hover:text-gray-200 hover:underline px-4" href="/home">Home</a></li>
                         </ul>
                     </nav>
 

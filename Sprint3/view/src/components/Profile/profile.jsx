@@ -12,19 +12,19 @@ export const profile = () => {
     const [userInfo, setUserInfo] = useState(null)
     useEffect(() => {
         const userEmail = u[0]
-        console.log(userEmail)
-        axios.post('http://localhost:5000/getUserInfo', {userEmail})
+        //console.log(userEmail)
+        axios.post('http://localhost:5000/getUserInfo', { userEmail })
             .then((res) => {
-                console.log("res.data=", res.data);
+                //console.log("res.data=", res.data);
                 setUserInfo(res.data)
-                console.log("userInfo.email=", userInfo.email)
+                //console.log("userInfo.email=", userInfo.email)
             })
             .catch((err) => console.log(err));
-    }, [userInfo]) //userInfo
+    }, []) //userInfo
 
     const [showEdit, setShowEdit] = useState(-1)
     const handleEdit = (e) => {
-        const se = -1*showEdit
+        const se = -1 * showEdit
         setShowEdit(se)
     }
 
@@ -34,17 +34,43 @@ export const profile = () => {
     const [bio, setBio] = useState()
     const handleUpdate = (e) => {
         const userEmail = u[0]
-        axios.post('http://localhost:5000/updateProfile', {userEmail,firstName,lastName,address,bio })
-        .then((res) => {
-            console.log("res.data=", res.data);
-            setUserInfo(res.data)
-            console.log("userInfo.email=", userInfo.email)
-        })
-        .catch((err) => console.log(err));
+        axios.post('http://localhost:5000/updateProfile', { userEmail, firstName, lastName, address, bio })
+            .then((res) => {
+                console.log("res.data=", res.data);
+                setUserInfo(res.data)
+                console.log("userInfo.email=", userInfo.email)
+            })
+            .catch((err) => console.log(err));
 
-        const se = -1*showEdit
+        const se = -1 * showEdit
         setShowEdit(se)
     }
+
+    const [payments, setPayments] = useState([])
+    useEffect(() => {
+        const userEmail = u[0]
+        console.log("userEmail=", userEmail)
+        axios.post('http://localhost:5000/getProductPayments', { userEmail })
+            .then((res) => {
+                console.log("res.data payments=", res.data);
+                setPayments(res.data)
+                console.log("payments=", payments)
+            })
+            .catch((err) => console.log(err));
+    }, [payments])
+
+    const [servicePayments, setServicePayments] = useState([])
+    useEffect(() => {
+        const userEmail = u[0]
+        console.log("userEmail=", userEmail)
+        axios.post('http://localhost:5000/getServicePayments', { userEmail })
+            .then((res) => {
+                console.log("res.data service payments=", res.data);
+                setServicePayments(res.data)
+                console.log("servicePayments=", servicePayments)
+            })
+            .catch((err) => console.log(err));
+    }, [servicePayments])
 
     return (
         <>
@@ -53,7 +79,7 @@ export const profile = () => {
                 <header className=" bg-sky-400  font-bold font-sans italic tracking-widest text-white">
                     <div className="flex flex-col items-center py-2">
                         <div className=" uppercase text-5xl " >
-                            PET CONNECT 
+                            PET CONNECT
                         </div>
                         <p className="text-lg ">
                             Welcome to the Community of Pets!
@@ -82,7 +108,7 @@ export const profile = () => {
                 <div className={`w-full ${open ? 'block' : 'hidden'}  text-orange-400 `}>
                     <div className=" w-full  flex flex-row items-center justify-left text-xl font-bold uppercase pt-2 ">
                         <Link to="/events" className=" border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ml-5">Events</Link>
-                        <Link to="#" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Services</Link>
+                        <Link to="/services" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Services</Link>
                         <Link to="/petShop" className="min-w-32 border-r-2 border-gray-400 hover:bg-gray-300  py-2 pl-3 mb-2">Pet Shop</Link>
                         <Link to="/resources" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Resources</Link>
                         <div className='nav-right  w-full flex flex-row justify-end ml-3'>
@@ -114,7 +140,7 @@ export const profile = () => {
                                         </div>
                                         <div className='flex flex-row items-center mb-1'>
                                             <div className='text-l font-medium text-slate-800'>
-                                                Email: {userInfo?(userInfo.email):("not found")}
+                                                Email: {userInfo ? (userInfo.email) : ("not found")}
                                             </div>
                                             <div className='text-l  ml-1'>
                                                 { }
@@ -122,7 +148,7 @@ export const profile = () => {
                                         </div>
                                         <div className='flex flex-row items-center mb-1'>
                                             <div className='text-l font-medium text-slate-800'>
-                                                First Name: {userInfo?(userInfo.firstName):("not found")}
+                                                First Name: {userInfo ? (userInfo.firstName) : ("not found")}
                                             </div>
                                             <div className='text-sm  ml-1'>
                                                 {/*user er address*/}
@@ -130,7 +156,7 @@ export const profile = () => {
                                         </div>
                                         <div className='flex flex-row items-center mb-1'>
                                             <div className='text-l font-medium text-slate-800'>
-                                                Last Name: {userInfo?(userInfo.lastName):("not found")}
+                                                Last Name: {userInfo ? (userInfo.lastName) : ("not found")}
                                             </div>
                                             <div className='text-l  ml-1'>
                                                 {/*user er address*/}
@@ -138,7 +164,7 @@ export const profile = () => {
                                         </div>
                                         <div className='flex flex-row items-center mb-1'>
                                             <div className='text-l font-medium text-slate-800'>
-                                                Address: {userInfo?(userInfo.address):("not found")}
+                                                Address: {userInfo ? (userInfo.address) : ("not found")}
                                             </div>
                                             <div className='text-l  ml-1'>
                                                 {/*user er address*/}
@@ -146,7 +172,7 @@ export const profile = () => {
                                         </div>
                                         <div className='flex flex-row items-center mb-1'>
                                             <div className='text-l font-medium text-slate-800'>
-                                                Bio: {userInfo?(userInfo.bio):("not found")}
+                                                Bio: {userInfo ? (userInfo.bio) : ("not found")}
                                             </div>
                                             <div className='text-l  ml-1'>
 
@@ -162,10 +188,10 @@ export const profile = () => {
                 </div>
 
 
-                {showEdit!=-1?(
-                    <div className='w-full flex justify-center'> 
-                        
-                    
+                {showEdit != -1 ? (
+                    <div className='w-full flex justify-center'>
+
+
                         <div className="w-9/12 flex justify-center mt-3 rounded-lg">
                             <div className='relative w-9/12 bg-white overflow-hidden rounded-lg'>
                                 <div className='bg-emerald-200 py-4 text-center text-black rounded-t-lg font-bold'>
@@ -183,27 +209,27 @@ export const profile = () => {
                                                 </div>
                                                 <div className='flex flex-row items-center mb-1'>
                                                     <div className='text-l font-medium text-slate-800'>
-                                                        First Name: 
+                                                        First Name:
                                                     </div>
-                                                    <input type="text" name="firstName" onChange={e => setFirstName(e.target.value)} className='border-3 rounded ml-5'/>
+                                                    <input type="text" name="firstName" onChange={e => setFirstName(e.target.value)} className='border-3 rounded ml-5' />
                                                 </div>
                                                 <div className='flex flex-row items-center mb-1'>
                                                     <div className='text-l font-medium text-slate-800 '>
-                                                        Last Name: 
+                                                        Last Name:
                                                     </div>
-                                                    <input type="text" name="lastName" onChange={e => setLastName(e.target.value)} className='border-3 rounded ml-5'/>
+                                                    <input type="text" name="lastName" onChange={e => setLastName(e.target.value)} className='border-3 rounded ml-5' />
                                                 </div>
                                                 <div className='flex flex-row items-center mb-1'>
                                                     <div className='text-l font-medium text-slate-800'>
                                                         Address:
                                                     </div>
-                                                    <input type="text" name="address" onChange={e => setAddress(e.target.value)} className='border-3 rounded ml-10'/>
+                                                    <input type="text" name="address" onChange={e => setAddress(e.target.value)} className='border-3 rounded ml-10' />
                                                 </div>
                                                 <div className='flex flex-row items-center mb-1'>
                                                     <div className='text-l font-medium text-slate-800'>
                                                         Bio:
                                                     </div>
-                                                    <input type="text" name="bio" onChange={e => setBio(e.target.value)} className='border-3 rounded ml-16'/>
+                                                    <input type="text" name="bio" onChange={e => setBio(e.target.value)} className='border-3 rounded ml-16' />
                                                 </div>
                                                 <div><button type='button' onClick={handleUpdate} className='py-2 px-4 text-sm font-medium text-center text-white rounded-full bg-emerald-700 hover-bg-primary-700 focus-ring-4 focus-outline-none focus-ring-primary-300 mt-3'>Update Profile</button></div>
                                             </div>
@@ -212,14 +238,122 @@ export const profile = () => {
                                 </div>
 
                             </div>
-                        </div>                    
+                        </div>
 
-                    
+
                     </div>
-                ):(
+                ) : (
                     <></>
                 )
                 }
+
+
+                <div className='product-payments w-full'>
+
+                    <div className="bg-white rounded-md shadow-md p-6 w-8/12 mx-auto my-5">
+                        <h2 className="text-lg font-semibold mb-2">Product Payment History</h2>
+                        <div className='flex flex-col '>
+
+
+                            {/*<div className='flex justify-around bg-gray-200 p-3 my-2'>
+                                <div className="mb-2 ">
+                                    <p className="text-gray-600">Title:</p>
+                                    <p className="font-semibold">Product Title</p>
+                                </div>
+                                <div className="mb-2">
+                                    <p className="text-gray-600">Price:</p>
+                                    <p className="font-semibold">$100</p>
+                                </div>
+                                <div className="mb-2">
+                                    <p className="text-gray-600">Phone:</p>
+                                    <p className="font-semibold">123-456-7890</p>
+                                </div>
+                                <div>
+                                    <p className="text-gray-600">Address:</p>
+                                    <p className="font-semibold">123 Street, City, Country</p>
+                                </div>
+                            </div>*/}
+
+                            {payments && payments.length > 0 ? (
+                                <>
+                                    {payments.map((payment, index) => (
+
+                                        <div key={index} className='flex justify-around bg-gray-200 p-3 my-2 '>
+
+                                            <div className="mb-2">
+                                                <p className="text-gray-600">Title:</p>
+                                                <p className="font-semibold">{payment.title}</p>
+                                            </div>
+                                            <div className="mb-2">
+                                                <p className="text-gray-600">Price:</p>
+                                                <p className="font-semibold">TK{payment.price}</p>
+                                            </div>
+                                            <div className="mb-2">
+                                                <p className="text-gray-600">Phone:</p>
+                                                <p className="font-semibold">{payment.phone}</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-gray-600">Address:</p>
+                                                <p className="font-semibold">{payment.address}</p>
+                                            </div>
+
+                                        </div>
+
+                                    ))}
+                                </>
+
+                            ) : (
+                                <div> No payments Available</div>
+                            )}
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div className='service-payments w-full'>
+
+                    <div className="bg-white rounded-md shadow-md p-6 w-8/12 mx-auto my-5">
+                        <h2 className="text-lg font-semibold mb-2">Service Payment History</h2>
+                        <div className='flex flex-col '>
+
+                            {servicePayments && servicePayments.length > 0 ? (
+                                <>
+                                    {servicePayments.map((servicePayment, index) => (
+
+                                        <div key={index} className='flex justify-around bg-gray-200 p-3 my-2 '>
+
+                                            <div className="mb-2">
+                                                <p className="text-gray-600">Title:</p>
+                                                <p className="font-semibold">{servicePayment.title}</p>
+                                            </div>
+                                            <div className="mb-2">
+                                                <p className="text-gray-600">Price:</p>
+                                                <p className="font-semibold">TK{servicePayment.price}</p>
+                                            </div>
+                                            <div className="mb-2">
+                                                <p className="text-gray-600">Phone:</p>
+                                                <p className="font-semibold">{servicePayment.phone}</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-gray-600">Address:</p>
+                                                <p className="font-semibold">{servicePayment.address}</p>
+                                            </div>
+
+                                        </div>
+
+                                    ))}
+                                </>
+
+                            ) : (
+                                <div> No payments Available</div>
+                            )}
+
+
+                        </div>
+                    </div>
+                </div>
 
 
             </div>

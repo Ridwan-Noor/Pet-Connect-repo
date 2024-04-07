@@ -161,6 +161,32 @@ app.post('/payProduct', (req, res) => {
         .catch(err => res.json(err))
 })
 
+// get all product payments for user
+app.post('/getProductPayments', (req, res) => {
+    const { userEmail } = req.body
+    //console.log(userEmail)
+    payments_model.find({email:userEmail})
+        .then(payments => {
+            //console.log(payments)
+            res.json(payments)
+        })
+        .catch(err => res.json(err)) 
+})
+
+// get all service payments for user
+app.post('/getServicePayments', (req, res) => {
+    const { userEmail } = req.body
+    //console.log(userEmail)
+    service_payments_model.find({email:userEmail})
+        .then(payments => {
+            //console.log(payments)
+            res.json(payments)
+        })
+        .catch(err => res.json(err)) 
+})
+
+
+
 // make service payment
 app.post('/payService', (req, res) => {
     //const { email, name, Address, phone, cardNum, cvc, price } = req.body
