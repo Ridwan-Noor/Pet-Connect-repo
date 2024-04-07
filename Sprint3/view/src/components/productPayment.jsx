@@ -53,7 +53,6 @@ function ProductPayment() {
                                 <Link to="/events" className=" border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ml-5">Events</Link>
                                 <Link to="/services" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Services</Link>
                                 <Link to="/petShop" className="min-w-32 border-r-2 border-gray-400 hover:bg-gray-300  py-2 pl-3 mb-2">Pet Shop</Link>
-                                <Link to="/" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Veteranian</Link>
                                 <Link to="/resources" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Resources</Link>
                                 <Link to="/home" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Home</Link>
                                 <div className='nav-right  w-full flex flex-row justify-end ml-3'>
@@ -72,7 +71,6 @@ function ProductPayment() {
                             <Link to="/events" className=" border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ml-5">Events</Link>
                             <Link to="#" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Services</Link>
                             <Link to="/petShop" className="min-w-32 border-r-2 border-gray-400 hover:bg-gray-300  py-2 pl-3 mb-2">Pet Shop</Link>
-                            <Link to="/" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Veteranian</Link>
                             <Link to="/resources" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Resources</Link>
                             <Link to="/home" className="border-r-2 border-gray-400 hover:bg-gray-300  py-2 px-3 mb-2 ">Home</Link>
                             <div className='nav-right  w-full flex flex-row justify-end ml-3'>
