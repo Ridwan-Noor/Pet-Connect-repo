@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { UserContext } from "../../App.jsx"
 import { Link } from 'react-router-dom'
 
-export const profile = ({ userEmail, onclose }) => {
+export const profile = () => {
     const { u, setU } = useContext(UserContext);
     console.log("u=", u)
 
@@ -41,7 +41,7 @@ export const profile = ({ userEmail, onclose }) => {
             console.log("userInfo.email=", userInfo.email)
         })
         .catch((err) => console.log(err));
-        
+
         const se = -1*showEdit
         setShowEdit(se)
     }

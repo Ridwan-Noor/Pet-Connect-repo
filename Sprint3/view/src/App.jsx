@@ -14,6 +14,7 @@ import Messages from "./components/Inbox/messages.jsx"
 import PetShop from "./components/petShop.jsx"
 import AdminHome from "./components/adminHome.jsx"
 import ProductPayment from "./components/productPayment.jsx"
+import ServicePayment from "./components/servicePayment.jsx"
 import VetLogin from "./components/Login/vetLogin"
 // import Conversation from "./components/Inbox/conversation.jsx"
 // <Route path='/conversation' element={<Conversation/>}></Route>
@@ -43,6 +44,7 @@ function App() {
           <Route path='/petShop' element={<PetShop/>}></Route>
           <Route path='/adminHome' element={<AdminHome/>}></Route>
           <Route path="/productPayment/:title/:price" element={<ProductPayment/>}></Route>
+          <Route path="/servicePayment/:title/:price" element={<ServicePayment/>}></Route>
           <Route path="/vetLogin" element={<VetLogin/>}></Route>
           {/*<Route path=":price" element={<ProductPayment/>}></Route>*/}
         

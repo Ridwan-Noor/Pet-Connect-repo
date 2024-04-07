@@ -89,6 +89,12 @@ function Home() {
             .catch((err) => console.log(err));
     }
 
+    const [showComments, setShowComments] = useState(-1)
+    const handleShowComments = () => {
+        const sc = -1 * showComments
+        setShowComments(sc)
+    }
+
     return (
 
         <div className="body bg-white font-family-karla">
@@ -144,9 +150,9 @@ function Home() {
 
             <div className='home-cont z-10 relative flex flex-col items-center'>
 
-                <div className="container mx-auto flex flex-wrap py-6">
+                <div className="container mx-auto flex flex-wrap py-6 ">
                     {/* Input Bar */}
-                    <div className="w-full bg-gray-200 py-4">
+                    <div className="w-full bg-gray-200 py-4 rounded-lg">
 
                         <div className="form-check ml-10">
                             <input className="form-check-input" type="radio" name="radio" id="gridRadios1" value="normalPost" checked={radio === 'normalPost'} onChange={radioChange} />
@@ -182,38 +188,49 @@ function Home() {
 
                             <div key={index} className='flex flex-col items-center'>
 
-                                <div  className="w-full md:w-2/3 flex flex-col items-center px-3">
+                                <div className="w-8/12 lg:w-7/12 xl:w-6/12 flex flex-col items-center px-3">
                                     {/* Single Post */}
-                                    <div className="bg-white w-full my-4 shadow-md rounded-md">
+                                    <div className="bg-white my-4 shadow-md rounded-xl">
                                         {/* Heading and Description */}
-                                        <div className="bg-gray-100 px-4 py-2">
-                                            <h2 className="text-lg font-semibold">{post.userName}</h2>
-                                            <p className="text-sm text-gray-700">{post.caption}</p>
+                                        <div className="bg-gray-100 px-4 py-2 rounded-t-xl">
+                                            <div className='flex justify-between mt-2'>
+                                                <h2 className="text-xl font-semibold">{post.userName}</h2>
+                                                <div className='flex text-sm'> Post Type: {post.type == 'normalPost' ? (<div className='mx-1'>Normal</div>) : (<div className='mx-1'>Adoption</div>)} </div>
+                                            </div>
+
+                                            <p className="text-lg text-gray-700">{post.caption}</p>
                                         </div>
                                         {/* Attached Picture */}
                                         <img src={`http://localhost:5000/Images/` + post.image} alt="Post" className="w-full" /> {/* https://source.unsplash.com/random */}
                                         {/* Like Button and Like Count */}
                                         <div className="flex items-center justify-between px-4 py-2">
                                             {/* Like Button */}
-                                            <button onClick={() => handleLike(post._id, post.likes)}>
+                                            <button onClick={() => handleLike(post._id, post.likes)} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 mt-1 rounded' >
                                                 Like
                                             </button>
                                             {/* Like Count */}
-                                            <span className="text-sm font-semibold">{post.likes} Likes</span>
+                                            <span className="text-l font-semibold ">{post.likes} Likes</span>
                                         </div>
-                                        {/* Comments */}
-                                        <div className="px-4 py-2">
-                                            {post.comments.map((comment, index) => (
-                                                <div key={index} className="flex items-center mb-2">
-                                                    <span className="font-semibold mr-2">{comment[0]}:</span>
-                                                    <span>{comment[1]}</span>
-                                                </div>
-                                            ))}
-                                        </div>
+
+                                        <button onClick={handleShowComments}> <div className='w-full text-center mt-1 ml-6 mb-2 py-1 bg-gray-200 hover:bg-gray-300 rounded'> Show/hide Comments </div> </button>
+                                        {showComments == 1 ? (
+                                            //print comments
+                                            <div className="px-4 py-2">
+                                                {post.comments.map((comment, index) => (
+                                                    <div key={index} className="flex items-center mb-2">
+                                                        <span className="font-semibold mr-2">{comment[0]}:</span>
+                                                        <span>{comment[1]}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                        ) : (<div></div>)}
+
+
                                         {/* Comment Box */}
-                                        <div className="px-4 py-2 border-t border-gray-200">
+                                        <div className="px-4 py-2 border-t border-gray-200 ">
                                             <input type="text" onChange={e => setNewComment(e.target.value)} placeholder="Write a comment..." className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-500" />
-                                            <button onClick={() => handleNewComment(post._id, newComment)} className="bg-blue-500 text-white px-4 py-2 rounded-md ml-2">Comment</button>
+                                            <button onClick={() => handleNewComment(post._id, newComment)} className="bg-blue-500 text-white px-4 py-2 rounded-md ml-2 mt-3 mb-2">Comment</button>
                                         </div>
                                     </div>
                                 </div>

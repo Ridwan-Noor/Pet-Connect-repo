@@ -3,11 +3,14 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom'; 
 import { useContext } from 'react';
 import { UserContext } from "../../App.jsx"
+//import { useHistory } from 'react-router-dom';
 
 const Services = () => {
 
   const { u, setU } = useContext(UserContext);
   const navigate = useNavigate(); 
+  //const history = useHistory();
+
   const first = u[0];
   const second = u[1];
   const third = u[2];
@@ -78,7 +81,9 @@ const Services = () => {
 
       await axios.post('http://localhost:5000/add-to-cart', data);
       alert('Item added to cart successfully!');
-      navigate("/productPayment"); 
+      //navigate("/productPayment");
+      //navigate({`/productPayment/${product.title}/${product.price}`}); 
+      //history.push(`/servicePayment/${title}/${rate}`);
     } catch (error) {
       console.error('Error adding item to cart:', error);
       alert('Failed to add item to cart. Please try again.');
@@ -117,9 +122,12 @@ const Services = () => {
                 <p className="font-semibold">Charge: {service.rate} BDT</p>
                 <p className="text-gray-700">{service.description}</p>
                 {(vetEmail === "" || vetEmail === null) && ( 
-                  <button onClick={() => addToCart(service)} className="mt-4 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-                    Book Now
-                  </button>
+                  <Link to={`/servicePayment/${service.title}/${service.rate}`}>
+                    <button onClick={() => addToCart(service)} className="mt-4 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                      Book Now
+                    </button>                  
+                  </Link>
+
                 )}
               </div>
             ))

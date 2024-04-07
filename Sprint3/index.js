@@ -10,12 +10,13 @@ const users_model = require("./model/models/users_model.js")
 const posts_model = require("./model/models/posts_model.js")
 const products_model = require("./model/models/products_model.js")
 const payments_model = require("./model/models/payments_model.js")
+const service_payments_model = require("./model/models/service_payments_model.js")
 
 // middlewares
 const app = express()
 app.use(express.json())
 app.use(cors())
-app.use(express.static('model'))
+app.use(express.static('model'))  // allow views to access model folder
 
 
 //routes   login, signup
@@ -155,6 +156,14 @@ app.get('/getAllProducts', (req, res) => {
 app.post('/payProduct', (req, res) => {
     //const { email, name, Address, phone, cardNum, cvc, price } = req.body
     payments_model.create(req.body)
+        .then(res.json("Payment Successful"))
+        .catch(err => res.json(err))
+})
+
+// make service payment
+app.post('/payService', (req, res) => {
+    //const { email, name, Address, phone, cardNum, cvc, price } = req.body
+    service_payments_model.create(req.body)
         .then(res.json("Payment Successful"))
         .catch(err => res.json(err))
 })
