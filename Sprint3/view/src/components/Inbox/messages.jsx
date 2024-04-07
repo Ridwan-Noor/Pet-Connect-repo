@@ -99,6 +99,16 @@ const Messages = () => {
       content: messageContent
     };
 
+    const newMessage = {
+      fromEmail: fromEmail,
+      fromName: fromName,
+      toEmail: recipientEmail,
+      toName: recipientName,
+      content: messageContent,
+      timestamp: new Date().toISOString()
+    };
+    setMessages([...messages, newMessage]);
+
     axios.post('http://localhost:5000/sendMessage', data)
       .then(response => {
         console.log('Message sent successfully');
@@ -126,6 +136,16 @@ const Messages = () => {
       timestamp: currentTime
     };
     console.log("hi", selectedSender);
+
+    const newMessage = {
+      fromEmail: fromEmail,
+      fromName: fromName,
+      toEmail: recipientEmail,
+      toName: recipientName,
+      content: messageContent,
+      timestamp: currentTime
+    };
+    setMessages([...messages, newMessage]);
 
     axios.post('http://localhost:5000/sendMessage', data)
       .then(response => {
