@@ -19,7 +19,9 @@ app.use(cors())
 app.use(express.static('model'))  // allow views to access model folder
 
 
-//routes   login, signup
+/////routes   
+
+//login, signup, getUserInfo, updateProfile(user)
 const users_route = require('./model/routes/users_route.js')
 app.use('/', users_route)
 
@@ -37,6 +39,25 @@ app.use('/', messages_route)
 
 const events_route = require('./model/routes/events_route.js')
 app.use('/', events_route)
+
+
+//getAllPosts, updateLikes, updateComments
+const posts_route = require('./model/routes/posts_route.js')
+app.use('/', posts_route)
+
+//getAllProducts
+const products_route = require('./model/routes/products_route.js')
+app.use('/', products_route)
+
+//payProduct, getProductPayments
+const payments_route = require('./model/routes/payments_route.js')
+app.use('/', payments_route)
+
+//getServicePayments, payService
+const service_payments_route = require('./model/routes/service_payments_route.js')
+app.use('/', service_payments_route)
+
+
 
 // image storage
 const storage = multer.diskStorage({
@@ -91,127 +112,111 @@ app.post('/uploadProduct', (req, res) => {   // uploading product data
     .then(res.json("Uploaded Product"))
     .catch(err => res.json(err))
 })
-//app.post('/uploadProduct', (req, res) => {   // uploading product data
-//    console.log('in')
-//    const { title, description, price } = req.body
-//    //console.log(post_id)
-//    //console.log(caption)
-//    //console.log(radio)
-//    products_model.findOneAndUpdate({  }, {$set:{title:title, description:description, price:price}}, {new:true,sort:{_id:-1}})
-//    .then(res.json("Uploaded Product"))
-//    .catch(err => res.json(err))
-//})
 
 
-// getting posts
-//app.get('/getPosts', (req, res) => {  // dummy post
+
+
+
+//getAllPosts
+//app.get('/getAllPosts', (req, res) => {
 //    posts_model.find()
-//    .then(posts => res.json(posts))
-//    .catch(err => res.json(err))
+//        .then(posts => res.json(posts))
+//        .catch(err => res.json(err))
 //})
-app.get('/getAllPosts', (req, res) => {
-    posts_model.find()
-        .then(posts => res.json(posts))
-        .catch(err => res.json(err))
-})
 
 // update likes
-app.post('/updateLikes', (req, res) => {
-    //const post_id = req.params.id;
-    const { post_id, newLikes } = req.body
-    posts_model.findOneAndUpdate({ _id: post_id }, { likes: newLikes })
-        .then(res.json("Updated Likes"))
-        .catch(err => res.json(err))
-})
+//app.post('/updateLikes', (req, res) => {
+//    //const post_id = req.params.id;
+//    const { post_id, newLikes } = req.body
+//    posts_model.findOneAndUpdate({ _id: post_id }, { likes: newLikes })
+//        .then(res.json("Updated Likes"))
+//        .catch(err => res.json(err))
+//})
 
 // update comments
-app.post('/updateComments', (req, res) => {
-    //console.log('in')
-    //const post_id = req.params.id;
-    const { post_id, userName, newComment } = req.body
-    console.log(userName)
+//app.post('/updateComments', (req, res) => {
+//    //console.log('in')
+//    //const post_id = req.params.id;
+//    const { post_id, userName, newComment } = req.body
+//    console.log(userName)
 
-    //const updateObject = {}     /////////////////////////// for nested comment object
-    //updateObject[`comments.${userName}`] = newComment;
-    //posts_model.findByIdAndUpdate( {_id:post_id}, {$set:updateObject}, {new: true} )
-
-    const commentArray = [userName, newComment]
-    posts_model.findByIdAndUpdate({_id: post_id}, {$push:{comments:commentArray} }, { new: true })
-        .then((res) => {
-            res.json(res)
-            console.log(post_id)
-            console.log(res.data)
-        })
-        .catch(err => res.json(err))
-})
+//    const commentArray = [userName, newComment]
+//    posts_model.findByIdAndUpdate({_id: post_id}, {$push:{comments:commentArray} }, { new: true })
+//        .then((res) => {
+//            res.json(res)
+//            console.log(post_id)
+//            console.log(res.data)
+//        })
+//        .catch(err => res.json(err))
+//})
 
 
 // getting list of all products
-app.get('/getAllProducts', (req, res) => {
-    products_model.find()
-        .then(products => res.json(products))
-        .catch(err => res.json(err))
-})
+//app.get('/getAllProducts', (req, res) => {
+//    products_model.find()
+//        .then(products => res.json(products))
+//        .catch(err => res.json(err))
+//})
 
 // make product payment
-app.post('/payProduct', (req, res) => {
-    //const { email, name, Address, phone, cardNum, cvc, price } = req.body
-    payments_model.create(req.body)
-        .then(res.json("Payment Successful"))
-        .catch(err => res.json(err))
-})
+//app.post('/payProduct', (req, res) => {
+//    //const { email, name, Address, phone, cardNum, cvc, price } = req.body
+//    payments_model.create(req.body)
+//        .then(res.json("Payment Successful"))
+//        .catch(err => res.json(err))
+//})
 
 // get all product payments for user
-app.post('/getProductPayments', (req, res) => {
-    const { userEmail } = req.body
-    //console.log(userEmail)
-    payments_model.find({email:userEmail})
-        .then(payments => {
-            //console.log(payments)
-            res.json(payments)
-        })
-        .catch(err => res.json(err)) 
-})
+//app.post('/getProductPayments', (req, res) => {
+//    const { userEmail } = req.body
+//    //console.log(userEmail)
+//    payments_model.find({email:userEmail})
+//        .then(payments => {
+//            //console.log(payments)
+//            res.json(payments)
+//        })
+//        .catch(err => res.json(err)) 
+//})
 
 // get all service payments for user
-app.post('/getServicePayments', (req, res) => {
-    const { userEmail } = req.body
-    //console.log(userEmail)
-    service_payments_model.find({email:userEmail})
-        .then(payments => {
-            //console.log(payments)
-            res.json(payments)
-        })
-        .catch(err => res.json(err)) 
-})
+//app.post('/getServicePayments', (req, res) => {
+//    const { userEmail } = req.body
+//    //console.log(userEmail)
+//    service_payments_model.find({email:userEmail})
+//        .then(payments => {
+//            //console.log(payments)
+//            res.json(payments)
+//        })
+//        .catch(err => res.json(err)) 
+//})
 
 
 
 // make service payment
-app.post('/payService', (req, res) => {
-    //const { email, name, Address, phone, cardNum, cvc, price } = req.body
-    service_payments_model.create(req.body)
-        .then(res.json("Payment Successful"))
-        .catch(err => res.json(err))
-})
+//app.post('/payService', (req, res) => {
+//    //const { email, name, Address, phone, cardNum, cvc, price } = req.body
+//    service_payments_model.create(req.body)
+//        .then(res.json("Payment Successful"))
+//        .catch(err => res.json(err))
+//})
 
 // getting user info
-app.post('/getUserInfo', (req, res) => {
-    const { userEmail } = req.body
-    //const userEmail = req.params.userEmail
-    //console.log("userEmail=",userEmail)
-    users_model.findOne({email:userEmail})
-        .then(user => res.json(user))
-        .catch(err => res.json(err)) 
-})
+//app.post('/getUserInfo', (req, res) => {
+//    const { userEmail } = req.body
+//    //const userEmail = req.params.userEmail
+//    //console.log("userEmail=",userEmail)
+//    users_model.findOne({email:userEmail})
+//        .then(user => res.json(user))
+//        .catch(err => res.json(err)) 
+//})
 
 // update profile
-app.post('/updateProfile', (req, res) => {
-    const { userEmail,firstName,lastName,address,bio } = req.body
-    users_model.findOneAndUpdate({ email:userEmail }, { firstName:firstName, lastName:lastName, address:address, bio:bio })
-    .then((user) => res.json(user))
-    .catch(err => res.json(err))
-})
+//app.post('/updateProfile', (req, res) => {
+//    const { userEmail,firstName,lastName,address,bio } = req.body
+//    users_model.findOneAndUpdate({ email:userEmail }, { firstName:firstName, lastName:lastName, address:address, bio:bio })
+//    .then((user) => res.json(user))
+//    .catch(err => res.json(err))
+//})
 
 //app.post('/login', (req, res) => {
 //    const { email, password } = req.body;  // storing json body elements to variables which is sent by client 
