@@ -17,9 +17,10 @@ const getServicePayments = (req,res) => {
 
 const payService  = (req,res) => {
     //const { email, name, Address, phone, cardNum, cvc, price } = req.body
+    console.log("payService, req.body= ", req.body)
     service_payments_model.create(req.body)
     .then(res.json("Payment Successful"))
-    .catch(err => res.json(err))
+    .catch(err => res.json(err)) 
 }
 
 

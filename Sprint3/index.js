@@ -21,6 +21,7 @@ app.use(express.static('model'))  // allow views to access model folder
 
 /////routes   
 
+
 //login, signup, getUserInfo, updateProfile(user)
 const users_route = require('./model/routes/users_route.js')
 app.use('/', users_route)
