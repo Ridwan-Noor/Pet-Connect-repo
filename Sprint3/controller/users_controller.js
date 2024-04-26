@@ -20,6 +20,7 @@ const find_user = (req, res) => {
                 res.json(["User not found", ""])
             }
         })
+        .catch(err => res.json(err)) 
 }
 
 
@@ -29,7 +30,7 @@ const signup = (req, res) => {
     console.log("req.body= ",req.body);
     users_model.find({ email: email })
         .then((users) => {
-            //console.log(users)
+            console.log(users)
             if (users.length == 0) {
                 users_model.create(req.body) // uploading body given by client to DB
                     .then((user) => {
@@ -54,7 +55,7 @@ const getUserInfo = (req,res) =>{
             //console.log("res.json= ", user)
             res.json(user)
         })
-        .catch(err => res.json(err)) 
+        .catch(err => res.json(err))  
 }
 
 const updateProfile = (req,res) => {
